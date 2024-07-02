@@ -246,7 +246,7 @@ async def _spoiler(interaction, text):
 async def invite(interaction):
    await interaction.response.send_message(view=InviteView())
 
-@bot.slash_commansd(name="python", description=" Basic python code parsing")
+@bot.slash_command(name="python", description=" Basic python code parsing")
 async def parsing(self, interaction, code: str):
    await interaction.response.send_message("`{}`".format(code))
 
