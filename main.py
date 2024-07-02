@@ -110,7 +110,6 @@ class ProblemView(discord.ui.View):
 
    @discord.ui.button(label="Report Error to CombineSoldier14", style=discord.ButtonStyle.primary)
    async def errorbutton(self, Button: discord.ui.Button, bot):
-        await self.realinteraction.response.send_message("Your bug has been reported and will be fixed soon!")
         owner = self.bot.get_user(951639877768863754)
         dm = await owner.create_dm()
         await dm.send("# Error Occurred!:\n`{}`".format(self.traceback))
@@ -126,7 +125,7 @@ async def on_application_command_error(interaction: discord.Interaction,
         color = discord.Colour.red()
     )
     embed.add_field(name="Error Message", value="`{0}`".format(repr(error)))
-    embed.set_footer(text="The report error button might fail. This is normal, your feedback will still be submitted!")
+    embed.set_footer(text="The report error button might fail. This is normal, your error will still be submitted!")
 
     embed.set_thumbnail(url="https://i.imgur.com/KR3aiwB.png")
     try:
