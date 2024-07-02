@@ -248,7 +248,7 @@ async def invite(interaction):
 
 @bot.slash_commansd(name="python", description=" Basic python code parsing")
 async def parsing(self, interaction, code: str)
-await interaction.response.send_message(code)
+await interaction.response.send_message("`{}`".format(code))
 
 # AutoRun prevention with __name__
 if __name__ == "__main__": # import run prevention
