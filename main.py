@@ -113,7 +113,7 @@ class ProblemView(discord.ui.View):
    async def errorbutton(self, Button: discord.ui.Button, bot):
         owner = self.bot.get_user(951639877768863754)
         dm = await owner.create_dm()
-        await dm.send("# Error Occurred!:\n`{}`".format(traceback.format_tb(self._error.__traceback__))
+        await dm.send("# Error Occurred!:\n`{}`".format(traceback.format_tb(self._error.__traceback__)))
 
 
 
