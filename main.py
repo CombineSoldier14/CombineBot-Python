@@ -99,10 +99,11 @@ async def on_ready():
     
 
 class ProblemView(discord.ui.View):
-   def __init__(self, traceback, bot):
+   def __init__(self, traceback, bot, interaction: discord.Interaction):
      super().__init__(timeout=None)
      self.traceback = traceback
      self.bot = bot
+     self.realinteraction = interaction
 
      supportServerButton = discord.ui.Button(label="Report GitHub issue", style=discord.ButtonStyle.gray, url="https://github.com/CombineSoldier14/CombineBot/issues/new")
      self.add_item(supportServerButton)
@@ -111,7 +112,7 @@ class ProblemView(discord.ui.View):
    async def errorbutton(self, Button: discord.ui.Button, bot):
         owner = self.bot.get_user(951639877768863754)
         dm = await owner.create_dm()
-        await dm.send("# Error Occurred!:\n `{0}`".format(self.traceback))
+        await dm.send("# Error Occurred!:\n Command: /{0}\n`{1}`".format(self.realinteraction.command, self.traceback))
 
 
 
