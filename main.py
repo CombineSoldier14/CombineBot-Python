@@ -166,7 +166,7 @@ class FeedbackModal(discord.ui.Modal):
           self.add_item(discord.ui.InputText(label="Feedback", style=discord.InputTextStyle.long))
 
      async def callback(self, interaction: discord.Interaction):
-           await interaction.response.send_message("Your feedback has been submitted to the bot's owner, **CombineSoldier14**!")
+           await interaction.response.send_message("Your feedback has been submitted to the bot's owner, **CombineSoldier14**!", ephemeral=True)
            owner = self.bot.get_user(951639877768863754)
            dm = await owner.create_dm()
            await dm.send("Feedback submitted from {0} (`{1}`): *{2}*".format(interaction.user, interaction.user.id, self.children[0].value))
