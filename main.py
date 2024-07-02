@@ -100,17 +100,17 @@ async def on_ready():
     
 
 class ProblemView(discord.ui.View):
-   def __init__(self, traceback, bot, interaction: discord.Interaction):
+   def __init__(self, traceback, bot):
      super().__init__(timeout=None)
      self._error = traceback
      self.bot = bot
-     self.realinteraction = interaction
 
      supportServerButton = discord.ui.Button(label="Report GitHub issue", style=discord.ButtonStyle.gray, url="https://github.com/CombineSoldier14/CombineBot/issues/new")
      self.add_item(supportServerButton)
 
    @discord.ui.button(label="Report Error to CombineSoldier14", style=discord.ButtonStyle.primary)
-   async def errorbutton(self, Button: discord.ui.Button, bot):
+   async def errorbutton(self, Button: discord.ui.Button, interaction: discord.Interaction):
+        await interaction.response.send_message("Your error has been submitted!")
         owner = self.bot.get_user(951639877768863754)
         dm = await owner.create_dm()
         await dm.send("# Error Occurred!:\n`{0}`\nError: `{1}`".format(''.join(traceback.format_tb(self._error.__traceback__)), repr(self._error)))
@@ -126,13 +126,12 @@ async def on_application_command_error(interaction: discord.Interaction,
         color = discord.Colour.red()
     )
     embed.add_field(name="Error Message", value="`{0}`".format(repr(error)))
-    embed.set_footer(text="The report error button might fail. This is normal, your error will still be submitted!")
 
     embed.set_thumbnail(url="https://i.imgur.com/KR3aiwB.png")
     try:
-        await interaction.response.send_message(embed=embed, view=ProblemView(traceback=error, bot=bot, interaction=discord.Interaction))
+        await interaction.response.send_message(embed=embed, view=ProblemView(traceback=error, bot=bot))
     except:
-        await interaction.followup.send(embed=embed, view=ProblemView(traceback=error, bot=bot, interaction=discord.Interaction))
+        await interaction.followup.send(embed=embed, view=ProblemView(traceback=error, bot=bot))
     raise error
 
 #CombineBot website button for /about
@@ -191,7 +190,6 @@ class InviteView(discord.ui.View):
 @bot.slash_command(name="ping", description="Sends the bot's ping or latency")
 async def ping(interaction):
     await interaction.response.send_message("Pong! Latency or ping is {0}".format(round(bot.latency * 100, 2)))
- 
 
 @bot.slash_command(name="helloworld", description="If your program can't say this, don't talk to me")
 async def helloworld(interaction):
@@ -245,14 +243,6 @@ async def _spoiler(interaction, text):
 @bot.slash_command(name="invite", description="Get the invite link for CombineBot!")
 async def invite(interaction):
    await interaction.response.send_message(view=InviteView())
-
-@bot.slash_command(name="python", description=" Basic python code parsing")
-async def parsing(interaction, code: discord.Option(str, description="Basic code to run")):
-   if dev_status == "false":
-               await interaction.response.send_message(":x: This command is only available on DEV mode.")
-   else:
-               execute = code
-               await interaction.response.send_message("`{}`".format(execute))
 
 # AutoRun prevention with __name__
 if __name__ == "__main__": # import run prevention
