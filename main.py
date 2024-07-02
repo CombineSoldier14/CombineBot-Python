@@ -248,7 +248,11 @@ async def invite(interaction):
 
 @bot.slash_command(name="python", description=" Basic python code parsing")
 async def parsing(interaction, code: discord.Option(str, description="Basic code to run")):
-   await interaction.response.send_message("`{}`".format(code))
+   if dev_status == "false":
+               await interaction.response.send_message(":x: This command is only available on DEV mode.")
+   else:
+               execute = code
+               await interaction.response.send_message("`{}`".format(execute))
 
 # AutoRun prevention with __name__
 if __name__ == "__main__": # import run prevention
