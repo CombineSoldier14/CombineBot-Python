@@ -164,8 +164,8 @@ def getJoe():
         jchar = json.loads(rchar.text)
         return jchar
 
-def getMeme():
-        rmeme = handler.get("https://meme-api.com/gimme")
+def getRandomReddit(subreddit: str):
+        rmeme = handler.get("https://meme-api.com/gimme/{}".format(subreddit))
         jmeme = json.loads(rmeme.text)
         return jmeme
 
