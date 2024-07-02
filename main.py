@@ -247,7 +247,7 @@ async def invite(interaction):
    await interaction.response.send_message(view=InviteView())
 
 @bot.slash_command(name="python", description=" Basic python code parsing")
-async def parsing(self, interaction, code: discord.Option(str, description="Basic code to run")):
+async def parsing(interaction, code: discord.Option(str, description="Basic code to run")):
    await interaction.response.send_message("`{}`".format(code))
 
 # AutoRun prevention with __name__
