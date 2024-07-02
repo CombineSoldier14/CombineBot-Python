@@ -14,6 +14,7 @@ from discord import interactions
 from discord import InteractionMessage
 import nltk
 import random
+import traceback
 import cogs.combinebot
 
 
@@ -112,7 +113,7 @@ class ProblemView(discord.ui.View):
    async def errorbutton(self, Button: discord.ui.Button, bot):
         owner = self.bot.get_user(951639877768863754)
         dm = await owner.create_dm()
-        await dm.send("# Error Occurred!:\n`{}`".format(self.traceback))
+        await dm.send("# Error Occurred!:\n`{}`".format(''.join(traceback.format_tb(self.traceback.__traceback__)))
 
 
 
@@ -129,7 +130,7 @@ async def on_application_command_error(interaction: discord.Interaction,
 
     embed.set_thumbnail(url="https://i.imgur.com/KR3aiwB.png")
     try:
-        await interaction.response.send_message(embed=embed, view=ProblemView(traceback=repr(error), bot=bot, interaction=discord.Interaction))
+        await interaction.response.send_message(embed=embed, view=ProblemView(traceb, bot=bot, interaction=discord.Interaction))
     except:
         await interaction.followup.send(embed=embed, view=ProblemView(traceback=repr(error), bot=bot, interaction=discord.Interaction))
     raise error
