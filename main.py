@@ -102,7 +102,7 @@ async def on_ready():
 class ProblemView(discord.ui.View):
    def __init__(self, traceback, bot, interaction: discord.Interaction):
      super().__init__(timeout=None)
-     self.traceback = traceback
+     self._error = traceback
      self.bot = bot
      self.realinteraction = interaction
 
@@ -113,7 +113,7 @@ class ProblemView(discord.ui.View):
    async def errorbutton(self, Button: discord.ui.Button, bot):
         owner = self.bot.get_user(951639877768863754)
         dm = await owner.create_dm()
-        await dm.send("# Error Occurred!:\n`{}`".format(''.join(traceback.format_tb(self.traceback.__traceback__)))
+        await dm.send("# Error Occurred!:\n`{}`".format(traceback.format_tb(self._error.__traceback__))
 
 
 
