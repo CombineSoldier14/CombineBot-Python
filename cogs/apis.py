@@ -146,9 +146,9 @@ class Apis(commands.Cog):
          embed.set_image(url="https://jojos-bizarre-api.netlify.app/assets/{0}".format(jchar["image"]))
          await interaction.response.send_message(embed=embed)
          
-    @group.command(name="meme", description="Get a random meme from Reddit!")
-    async def meme(self, interaction):
-         jmeme = cogs.combinebot.getMeme()
+    @group.command(name="randomreddit", description="Get a random post from a subreddit!")
+    async def randomreddit(self, interaction, sub: discord.Option(str, description="Subreddit name to get the post from.")):
+         jmeme = cogs.combinebot.getRandomReddit(subreddit=sub)
          
          embed = cogs.combinebot.makeEmbed(
               title = jmeme["title"],
@@ -236,10 +236,9 @@ class Apis(commands.Cog):
 
     @group.command(name="dictionary", description="Get the definition of an english word!")
     async def dictionary(self, interaction, word: discord.Option(str, description="Word to get definition of")):
-           await interaction.defer()
            request = requests.get("https://api.dictionaryapi.dev/api/v2/entries/en/{}".format(word))
            if request.status_code == 404:
-                 interaction.response.send_message(":x: Word \"**{}**\" not found! Perhaps you misspelled it?".format(word))
+                 await interaction.response.send_message(":x: Word \"**{}**\" not found! Perhaps you misspelled it?".format(word))
                  return
                   
            response = json.loads(request.text)
@@ -439,6 +438,34 @@ def setup(bot): # this is called by Pycord to setup the co
                   
 
            
+
+    
+
+           
+
+   
+           
+        
+    
+         
+         
+         
+        
+
+        
+
+
+
+
+
+
+
+
+def setup(bot): # this is called by Pycord to setup the co
+    bot.add_cog(Apis(bot)) # add the cog to the bot
+
+
+
 
     
 
