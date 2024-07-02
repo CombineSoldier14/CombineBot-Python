@@ -110,7 +110,7 @@ class ProblemView(discord.ui.View):
 
    @discord.ui.button(label="Report Error to CombineSoldier14", style=discord.ButtonStyle.primary)
    async def errorbutton(self, Button: discord.ui.Button, bot):
-        await self.realinteraction.send_message("Your bug has been reported and will be fixed soon!")
+        await self.realinteraction.response.send_message("Your bug has been reported and will be fixed soon!")
         owner = self.bot.get_user(951639877768863754)
         dm = await owner.create_dm()
         await dm.send("# Error Occurred!:\n`{}`".format(self.traceback))
