@@ -108,11 +108,12 @@ class ProblemView(discord.ui.View):
      supportServerButton = discord.ui.Button(label="Report GitHub issue", style=discord.ButtonStyle.gray, url="https://github.com/CombineSoldier14/CombineBot/issues/new")
      self.add_item(supportServerButton)
 
-   @discord.ui.button(label="Report Error to Devs", style=discord.ButtonStyle.primary)
+   @discord.ui.button(label="Report Error to CombineSoldier14", style=discord.ButtonStyle.primary)
    async def errorbutton(self, Button: discord.ui.Button, bot):
+        await self.realinteraction.send_message("Your bug has been reported and will be fixed soon!")
         owner = self.bot.get_user(951639877768863754)
         dm = await owner.create_dm()
-        await dm.send("# Error Occurred!:\n Command: /{0}\n`{1}`".format(self.realinteraction.command, self.traceback))
+        await dm.send("# Error Occurred!:\n`{}`".format(self.traceback))
 
 
 
