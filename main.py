@@ -113,7 +113,7 @@ class ProblemView(discord.ui.View):
    async def errorbutton(self, Button: discord.ui.Button, bot):
         owner = self.bot.get_user(951639877768863754)
         dm = await owner.create_dm()
-        await dm.send("# Error Occurred!:\n`{0}`\nError: {1}".format(''.join(traceback.format_tb(self._error.__traceback__)), repr(self._error)))
+        await dm.send("# Error Occurred!:\n`{0}`\nError: `{1}`".format(''.join(traceback.format_tb(self._error.__traceback__)), repr(self._error)))
 
 
 
@@ -190,8 +190,7 @@ class InviteView(discord.ui.View):
 
 @bot.slash_command(name="ping", description="Sends the bot's ping or latency")
 async def ping(interaction):
-    #await interaction.response.send_message("Pong! Latency or ping is {0}".format(round(bot.latency * 100, 2)))
-     await interaction.response.send_message(skib)
+    await interaction.response.send_message("Pong! Latency or ping is {0}".format(round(bot.latency * 100, 2)))
  
 
 @bot.slash_command(name="helloworld", description="If your program can't say this, don't talk to me")
