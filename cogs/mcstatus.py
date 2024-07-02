@@ -21,8 +21,8 @@ class Mcstatus(commands.Cog):
         self._last_member = None
     
     @group.command(name="mcjava", description="Get the status of a minecraft java server!")
-    async def mcjava(self, interaction, host: discord.Option(str, description="Server URL to get info on.", required=True), port: discord.Option(int, description="The port of the Minecraft server", default=25565)):
-           await interaction.defer()
+    async def mcjava(self, ctx, host: discord.Option(str, description="Server URL to get info on.", required=True), port: discord.Option(int, description="The port of the Minecraft server", default=25565)):
+           await ctx.defer()
            addr = "{0}:{1}".format(host, port)
            serverjava = JavaServer.lookup(addr)
            javastatus = serverjava.status()
@@ -44,11 +44,11 @@ class Mcstatus(commands.Cog):
            embed.add_field(name="Secure Chat?", value=str(javastatus.enforces_secure_chat))
            embed.set_thumbnail(url="https://static-00.iconduck.com/assets.00/java-icon-1511x2048-6ikx8301.png")
            
-           await interaction.response.send_message(embed=embed)
+           await ctx.response.send_message(embed=embed)
 
     @group.command(name="mcbedrock", description="Get the status of a minecraft bedrock server!")
-    async def mcbedrock(self, interaction, hosturl: discord.Option(str, description="Server URL to get info on.", required=True), portnumber: discord.Option(int, description="The port of the Minecraft server", default=25565)):
-           await interaction.defer()
+    async def mcbedrock(self, ctx, hosturl: discord.Option(str, description="Server URL to get info on.", required=True), portnumber: discord.Option(int, description="The port of the Minecraft server", default=25565)):
+           await ctx.defer()
            bedrockaddr = "{0}:{1}".format(hosturl, portnumber)
            serverbedrock = BedrockServer.lookup(bedrockaddr)
            bedrockstatus = serverbedrock.status()
@@ -70,7 +70,7 @@ class Mcstatus(commands.Cog):
            embed.set_thumbnail(url="https://gamepedia.cursecdn.com/minecraft_gamepedia/6/68/Bedrock_JE2_BE2.png?version=fe113612ba2231b70dbf6627c699e644")
            
            
-           await interaction.response.send_message(embed=embed)
+           await ctx.response.send_message(embed=embed)
 
 
     
