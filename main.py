@@ -189,7 +189,8 @@ class InviteView(discord.ui.View):
 
 @bot.slash_command(name="ping", description="Sends the bot's ping or latency")
 async def ping(interaction):
-    await interaction.response.send_message("Pong! Latency or ping is {0}".format(round(bot.latency * 100, 2)))
+    #await interaction.response.send_message("Pong! Latency or ping is {0}".format(round(bot.latency * 100, 2)))
+     await interaction.response.send_message(skib)
  
 
 @bot.slash_command(name="helloworld", description="If your program can't say this, don't talk to me")
