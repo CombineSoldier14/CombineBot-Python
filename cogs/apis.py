@@ -167,10 +167,10 @@ class Apis(commands.Cog):
                await interaction.response.send_message(f":dog: `{randbreed}`")
 
     @group.command(name="urlshort", description="Shortens a given URL")
-    async def urlshort(self, interaction, url: discord.Option(str, description="URL to shorten. Must begin with http(s)://www.")):
-           await interaction.defer()
+    async def urlshort(self, ctx, url: discord.Option(str, description="URL to shorten. Must begin with http(s)://www.")):
+           await ctx.defer()
            
-           await interaction.response.send_message("Your Shortened URL: https://1pt.co/{0}".format(cogs.combinebot.shortenURL(url=url)))
+           await ctx.response.send_message("Your Shortened URL: https://1pt.co/{0}".format(cogs.combinebot.shortenURL(url=url)))
 
     @group.command(name="weather", description="Get the weather for a city!")
     async def weather(self, interaction, city: discord.Option(str, description="The city to get weather of")):
@@ -235,11 +235,11 @@ class Apis(commands.Cog):
            await interaction.response.send_message(embed=embed)
 
     @group.command(name="dictionary", description="Get the definition of an english word!")
-    async def dictionary(self, ctx, interaction, word: discord.Option(str, description="Word to get definition of")):
-           ctx.defer()
+    async def dictionary(self, ctx, word: discord.Option(str, description="Word to get definition of")):
+           await ctx.defer()
            request = requests.get("https://api.dictionaryapi.dev/api/v2/entries/en/{}".format(word))
            if request.status_code == 404:
-                 await interaction.response.send_message(":x: Word \"**{}**\" not found! Perhaps you misspelled it?".format(word))
+                 await ctx.response.send_message(":x: Word \"**{}**\" not found! Perhaps you misspelled it?".format(word))
                  return
                   
            response = json.loads(request.text)
@@ -291,8 +291,8 @@ class Apis(commands.Cog):
            await interaction.response.send_message(embed=embed)
 
     @group.command(name="rss", description="Get the RSS feed from a website!")
-    async def rss(self, interaction, link: discord.Option(str, description="Link to the RSS feed")):
-           await interaction.defer()
+    async def rss(self, ctx, link: discord.Option(str, description="Link to the RSS feed")):
+           await ctx.defer()
            d = feedparser.parse(link)
            
            embed = cogs.combinebot.makeEmbed(
@@ -303,12 +303,12 @@ class Apis(commands.Cog):
            )
            for names in d.entries:
                   embed.add_field(name=names.title, value="[Link to post]({})".format(names.link))
-           await interaction.response.send_message(embed=embed)
+           await ctx.response.send_message(embed=embed)
 
 
     @group.command(name="demonlist", description="Get info on a demon from the Pointercrate Geometry Dash demon list!")
-    async def demonlist(self, interaction, demonname: discord.Option(str, description="Name of the demon to get info on. CASE SENSITIVE!")):
-           await interaction.defer()
+    async def demonlist(self, ctx, demonname: discord.Option(str, description="Name of the demon to get info on. CASE SENSITIVE!")):
+           await ctx.defer()
            demons = client.get_demons(name=demonname)
            
            demons = demons[0]
@@ -332,13 +332,13 @@ class Apis(commands.Cog):
                   color=discord.Colour.red(),
            )
            embed.set_thumbnail(url="https://i.postimg.cc/wM77Spkt/Extreme-Demon.webp")
-           await interaction.response.send_message(embed=embed, view=view)
+           await ctx.response.send_message(embed=embed, view=view)
 
     @group.command(name="trivia", description="Get a random trivia")
-    async def trivia(self, interaction, 
+    async def trivia(self, ctx, 
                      triviacategory: discord.Option(str, description="Category for trivia questions", choices=category),
                      triviadifficulty: discord.Option(str, description="The difficulty of the questions", choices=difficulty)):
-          await interaction.defer()
+          await ctx.defer()
           
           response = cogs.combinebot.getTrivia(category=triviacategory, difficulty=triviadifficulty)
           response = response["results"][0]
@@ -398,99 +398,13 @@ class Apis(commands.Cog):
 
 
           embed = cogs.combinebot.makeEmbed(description=titlequestion, color=discord.Color.blurple(),)
-          await interaction.response.send_message(embed=embed, view=QuestionView())
+          await ctx.response.send_message(embed=embed, view=QuestionView())
                 
            
 
            
                   
 
-           
-
-    
-
-           
-
-   
-           
-        
-    
-         
-         
-         
-        
-
-        
-
-
-
-
-
-
-
-
 def setup(bot): # this is called by Pycord to setup the co
     bot.add_cog(Apis(bot)) # add the cog to the bot
-
-
-           
-
-           
-                  
-
-           
-
-    
-
-           
-
-   
-           
-        
-    
-         
-         
-         
-        
-
-        
-
-
-
-
-
-
-
-
-def setup(bot): # this is called by Pycord to setup the co
-    bot.add_cog(Apis(bot)) # add the cog to the bot
-
-
-
-
-    
-
-           
-
-   
-           
-        
-    
-         
-         
-         
-        
-
-        
-
-
-
-
-
-
-
-
-def setup(bot): # this is called by Pycord to setup the co
-    bot.add_cog(Apis(bot)) # add the cog to the bot
-
 
