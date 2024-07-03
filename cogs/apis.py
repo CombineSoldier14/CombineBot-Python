@@ -367,7 +367,7 @@ class Apis(commands.Cog):
             @discord.ui.button(label=label1, style=discord.ButtonStyle.gray)
             async def _question1(self, button, interaction):
                 self.disable_all_items()
-                await interaction.response.edit_message(view=self)
+                await interaction.followup.edit_message(view=self)
                 if label1 == response["incorrect_answers"][0] or response["incorrect_answers"][1] or response["incorrect_answers"][2]:
                       await interaction.followup.send("Correct answer was **{}**.".format(response["correct_answer"]))
                 elif label4 == response["correct_answer"]:
@@ -376,7 +376,7 @@ class Apis(commands.Cog):
             @discord.ui.button(label=label2, style=discord.ButtonStyle.gray)
             async def _question2(self, button, interaction):
                 self.disable_all_items()
-                await interaction.response.edit_message(view=self)
+                await interaction.followup.edit_message(view=self)
                 if label2 == response["incorrect_answers"][0] or response["incorrect_answers"][1] or response["incorrect_answers"][2]:
                       await interaction.followup.send("Correct answer was **{}**.".format(response["correct_answer"]))
                 elif label4 == response["correct_answer"]:
@@ -385,7 +385,7 @@ class Apis(commands.Cog):
             @discord.ui.button(label=label3, style=discord.ButtonStyle.gray)
             async def _question3(self, button, interaction):
                 self.disable_all_items()
-                await interaction.response.edit_message(view=self)
+                await interaction.followup.edit_message(view=self)
                 if label3 == response["incorrect_answers"][0] or response["incorrect_answers"][1] or response["incorrect_answers"][2]:
                       await interaction.followup.send("Correct answer was **{}**.".format(response["correct_answer"]))
                 elif label4 == response["correct_answer"]:
