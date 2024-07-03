@@ -95,8 +95,8 @@ class Apis(commands.Cog):
 
 
     @group.command(name="jojostand", description="Get a random jojo stand and its info!")
-    async def jojostand(self, interaction):
-         interaction.defer()
+    async def jojostand(self, ctx):
+         await ctx.defer()
          jstand = cogs.combinebot.getStand()
 
          embed = cogs.combinebot.makeEmbed(
@@ -113,12 +113,12 @@ class Apis(commands.Cog):
          )
          embed.set_image(url="https://jojos-bizarre-api.netlify.app/assets/{0}".format(jstand["image"]))
 
-         await interaction.response.send_message(embed=embed)
+         await ctx.response.send_message(embed=embed)
 
 
     @group.command(name="jojocharacter", description="Get a random jojo character and their info!")
-    async def jojocharacter(self, interaction):
-         interaction.defer()
+    async def jojocharacter(self, ctrx):
+         await ctx.defer()
          jchar = cogs.combinebot.getJoe()
 
          embed = cogs.combinebot.makeEmbed(
@@ -144,11 +144,19 @@ class Apis(commands.Cog):
                color=discord.Colour.blurple(),
          )
          embed.set_image(url="https://jojos-bizarre-api.netlify.app/assets/{0}".format(jchar["image"]))
-         await interaction.response.send_message(embed=embed)
+         await ctx.response.send_message(embed=embed)
          
     @group.command(name="randomreddit", description="Get a random post from a subreddit!")
     async def randomreddit(self, interaction, sub: discord.Option(str, description="Subreddit name to get the post from.")):
          jmeme = cogs.combinebot.getRandomReddit(subreddit=sub)
+         if jmeme.status_code == 404:
+             await interaction.response.sen_message(":x: Subreddit not found!")
+             return
+             
+         if jmeme["nsfw"] == true and interaction.channel.nsfw == False:
+             await interaction.response.send_message(":x: This NSFW meme can only be sent in NSFW channels.")
+             return
+         
          
          embed = cogs.combinebot.makeEmbed(
               title = jmeme["title"],
