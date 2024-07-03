@@ -399,8 +399,8 @@ class Apis(commands.Cog):
                 elif label4 == response["correct_answer"]:
                       await interaction. followup.send(":white_check_mark: Correct answer!")
 
-embed=cogs.combinebot.makeEmbed(description=titlequestion, color=discord.Color.blurple())
-await interaction.response.send_message(embed=embed, view=QuestionView())
+                              embed=cogs.combinebot.makeEmbed(description=titlequestion, color=discord.Color.blurple())
+    await interaction.response.send_message(embed=embed, view=QuestionView())
                 
            
 
