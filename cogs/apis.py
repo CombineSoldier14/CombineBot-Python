@@ -240,8 +240,8 @@ class Apis(commands.Cog):
            await interaction.response.send_message(embed=embed)
 
     @group.command(name="dictionary", description="Get the definition of an english word!")
-    async def dictionary(self, ctx, word: discord.Option(str, description="Word to get definition of")):
-           await ctx.defer()
+    async def dictionary(self, interaction, word: discord.Option(str, description="Word to get definition of")):
+           await interaction.defer()
            request = requests.get("https://api.dictionaryapi.dev/api/v2/entries/en/{}".format(word))
            if request.status_code == 404:
                  await ctx.response.send_message(":x: Word \"**{}**\" not found! Perhaps you misspelled it?".format(word))
@@ -264,7 +264,7 @@ class Apis(commands.Cog):
                   color=discord.Colour.blurple(),
            )
            embed.set_footer(text="{0} v{1}".format(name, VERSION), icon_url=icon)
-           await ctx.response.send_message(embed=embed)
+           await interaction.followup.send(embed=embed)
 
     @group.command(name="fakeperson", description="Generates a fake person and their info")
     async def fakeperson(self, interaction):
