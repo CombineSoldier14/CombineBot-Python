@@ -397,10 +397,8 @@ class Apis(commands.Cog):
                 if label4 == response["incorrect_answers"][0] or response["incorrect_answers"][1] or response["incorrect_answers"][2]:
                       await interaction. followup.send("Correct answer was **{}**.".format(response["correct_answer"]))
                 elif label4 == response["correct_answer"]:
-                      await interaction. followup.send(":white_check_mark: Correct answer!")
-
-                              embed=cogs.combinebot.makeEmbed(description=titlequestion, color=discord.Color.blurple())
-    await interaction.response.send_message(embed=embed, view=QuestionView())
+                      await interaction. followup.send(":white_check_mark: Correct answer!")  embed=cogs.combinebot.makeEmbed(description=titlequestion, color=discord.Color.blurple())
+       await interaction.response.send_message(embed=embed, view=QuestionView())
                 
            
 
