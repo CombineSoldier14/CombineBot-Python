@@ -264,7 +264,7 @@ class Apis(commands.Cog):
                   color=discord.Colour.blurple(),
            )
            embed.set_footer(text="{0} v{1}".format(name, VERSION), icon_url=icon)
-           await interaction.response.send_message(embed=embed)
+           await ctx.response.send_message(embed=embed)
 
     @group.command(name="fakeperson", description="Generates a fake person and their info")
     async def fakeperson(self, interaction):
