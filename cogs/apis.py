@@ -340,10 +340,10 @@ class Apis(commands.Cog):
            await interaction.followup.send(embed=embed, view=view)
 
     @group.command(name="trivia", description="Get a random trivia")
-    async def trivia(self, interaction, 
+    async def trivia(self, ctx, 
                      triviacategory: discord.Option(str, description="Category for trivia questions", choices=category),
                      triviadifficulty: discord.Option(str, description="The difficulty of the questions", choices=difficulty)):
-          await interaction.defer()
+          await ctx.defer()
           
           response = cogs.combinebot.getTrivia(category=triviacategory, difficulty=triviadifficulty)
           response = response["results"][0]
@@ -365,45 +365,45 @@ class Apis(commands.Cog):
                 super().__init__()
 
             @discord.ui.button(label=label1, style=discord.ButtonStyle.gray)
-            async def _question1(self, button, interaction):
+            async def _question1(self, button, ctx):
                 self.disable_all_items()
-                await interaction.followup.edit_message(view=self)
+                await ctx.edit_message(view=self)
                 if label1 == response["incorrect_answers"][0] or response["incorrect_answers"][1] or response["incorrect_answers"][2]:
-                      await interaction.followup.send("Correct answer was **{}**.".format(response["correct_answer"]))
+                      await ctx.send("Correct answer was **{}**.".format(response["correct_answer"]))
                 elif label4 == response["correct_answer"]:
-                      await interaction.followup.send(":white_check_mark: Correct answer!")
+                      await ctx.send(":white_check_mark: Correct answer!")
             
             @discord.ui.button(label=label2, style=discord.ButtonStyle.gray)
-            async def _question2(self, button, interaction):
+            async def _question2(self, button, ctx):
                 self.disable_all_items()
-                await interaction.followup.edit_message(view=self)
+                await ctx.edit_message(view=self)
                 if label2 == response["incorrect_answers"][0] or response["incorrect_answers"][1] or response["incorrect_answers"][2]:
-                      await interaction.followup.send("Correct answer was **{}**.".format(response["correct_answer"]))
+                      await ctx.send("Correct answer was **{}**.".format(response["correct_answer"]))
                 elif label4 == response["correct_answer"]:
-                      await interaction.followup.send(":white_check_mark: Correct answer!")
+                      await ctx.send(":white_check_mark: Correct answer!")
             
             @discord.ui.button(label=label3, style=discord.ButtonStyle.gray)
-            async def _question3(self, button, interaction):
+            async def _question3(self, button, ctx):
                 self.disable_all_items()
-                await interaction.followup.edit_message(view=self)
+                await ctx.edit_message(view=self)
                 if label3 == response["incorrect_answers"][0] or response["incorrect_answers"][1] or response["incorrect_answers"][2]:
-                      await interaction.followup.send("Correct answer was **{}**.".format(response["correct_answer"]))
+                      await ctx.send("Correct answer was **{}**.".format(response["correct_answer"]))
                 elif label4 == response["correct_answer"]:
-                      await interaction.followup.send(":white_check_mark: Correct answer!")
+                      await ctx.send(":white_check_mark: Correct answer!")
 
             @discord.ui.button(label=label4, style=discord.ButtonStyle.gray)
-            async def _question4(self, button, interaction):
+            async def _question4(self, button, ctx):
                 self.disable_all_items()
-                await interaction.followup.edit_message(view=self)
+                await ctx.edit_message(view=self)
                 if label4 == response["incorrect_answers"][0] or response["incorrect_answers"][1] or response["incorrect_answers"][2]:
-                      await interaction.response.send_message("Correct answer was **{}**.".format(response["correct_answer"]))
+                      await ctx.send_message("Correct answer was **{}**.".format(response["correct_answer"]))
                 elif label4 == response["correct_answer"]:
-                      await interaction.followup.send(":white_check_mark: Correct answer!")
+                      await ctx.send(":white_check_mark: Correct answer!")
 
 
 
           embed = cogs.combinebot.makeEmbed(description=titlequestion, color=discord.Color.blurple(),)
-          await interaction.followup.send(embed=embed, view=QuestionView())
+          await ctx.send(embed=embed, view=QuestionView())
                 
            
 
