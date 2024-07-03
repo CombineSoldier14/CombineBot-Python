@@ -149,9 +149,6 @@ class Apis(commands.Cog):
     @group.command(name="randomreddit", description="Get a random post from a subreddit!")
     async def randomreddit(self, interaction, sub: discord.Option(str, description="Subreddit name to get the post from.")):
          jmeme = cogs.combinebot.getRandomReddit(subreddit=sub)
-         if jmeme.status_code == 404:
-             await interaction.response.sen_message(":x: Subreddit not found!")
-             return
              
          if jmeme["nsfw"] == true and interaction.channel.nsfw == False:
              await interaction.response.send_message(":x: This NSFW meme can only be sent in NSFW channels.")
