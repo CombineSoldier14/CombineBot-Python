@@ -150,7 +150,7 @@ class Apis(commands.Cog):
     async def randomreddit(self, interaction, sub: discord.Option(str, description="Subreddit name to get the post from.")):
          jmeme = cogs.combinebot.getRandomReddit(subreddit=sub)
              
-         if jmeme["nsfw"] == true and interaction.channel.nsfw == False:
+         if jmeme["nsfw"] == True and interaction.channel.nsfw == False:
              await interaction.response.send_message(":x: This NSFW meme can only be sent in NSFW channels.")
              return
          
