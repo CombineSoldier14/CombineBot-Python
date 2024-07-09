@@ -57,23 +57,6 @@ class Moderation(commands.Cog):
 
       await interaction.response.send_message(embed=embed)
 
-    @group.command(name="poll", description="Creates a votable yes or no poll!")
-    @commands.has_permissions(administrator = True)
-    async def poll(self, interaction, title: discord.Option(str, description="Title of poll", required=True), description: discord.Option(str, description="Your yes or no poll description", required=True)):
-       embed = cogs.combinebot.makeEmbed(
-          title=title,
-          description=description,
-          color=discord.Colour.blurple(),
-
-       )
-
-       
-       emoji = '\N{THUMBS UP SIGN}'
-       emoji2 = '\N{THUMBS DOWN SIGN}'
-       message = await interaction.response.send_message(embed=embed)
-       await message.add_reaction(emoji)
-       await message.add_reaction(emoji2)
-    
     @group.command(name="purge", description="Purges a certain number of messages from a channel")
     @commands.has_permissions(manage_messages = True)
     @commands.has_permissions(read_message_history = True)
@@ -132,7 +115,62 @@ class Moderation(commands.Cog):
     async def channelid(self, interaction, channel: discord.Option(discord.TextChannel, description="Channel to get ID of.")):
        await interaction.response.send_message("That channel's ID is **{}**".format(str(channel.id)))
 
+    @group.command(name="poll", description="Creates a votable poll!")
+    async def poll(self, interaction,
+                   multiselect: discord.Option(str, description="Allow users to select multiple answers?", choices=["True", "False"]),
+                   duration: discord.Option(int, description="Number of hours that the poll will expire"),
+                   question: discord.Option(str, description="Question of poll"),
+                   answer1: discord.Option(str, description="Answer for the poll"),
+                   answer2: discord.Option(str, description="Answer for the poll"),
+                   answer3: discord.Option(str, description="Answer for the poll", required=False),
+                   answer4: discord.Option(str, description="Answer for the poll", required=False),
+                   answer5: discord.Option(str, description="Answer for the poll", required=False),
+                   answer6: discord.Option(str, description="Answer for the poll", required=False),
+                   answer7: discord.Option(str, description="Answer for the poll", required=False),
+                   answer8: discord.Option(str, description="Answer for the poll", required=False),
+                   answer9: discord.Option(str, description="Answer for the poll", required=False),
+                   answer10: discord.Option(str, description="Answer for the poll", required=False),
+                   ):
+       answerslist = [answer1, answer2]
 
+       if answer3 != None:
+          answerslist.append(answer3)
+
+       if answer4 != None:
+          answerslist.append(answer4)
+
+       if answer5 != None:
+          answerslist.append(answer5)
+
+       if answer6 != None:
+          answerslist.append(answer6)
+
+       if answer7 != None:
+          answerslist.append(answer7)
+
+       if answer8 != None:
+          answerslist.append(answer8)
+
+       if answer9 != None:
+          answerslist.append(answer9)
+
+       if answer10 != None:
+          answerslist.append(answer10)
+       
+       if multiselect == "True":
+          multiselect = True
+       else:
+          multiselect = False
+       
+       poll = discord.Poll(
+          question=question,
+          answers=answerslist,
+          duration=duration,
+          allow_multiselect=multiselect
+
+       )
+       await interaction.response.send_message(poll=poll)
+       
 
     
 
