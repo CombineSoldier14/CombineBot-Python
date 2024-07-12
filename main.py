@@ -61,7 +61,7 @@ FRENCH = 420052952686919690
 
 
 # Defing bot and bot user intents
-intents = discord.Intents.all()
+intents = discord.Intents.default()
 bot = commands.Bot(command_prefix=prefix, intents=intents)
 
 logging.basicConfig(level=logging.INFO)
