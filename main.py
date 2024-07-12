@@ -220,15 +220,10 @@ async def about(interaction):
     
 
 
-# say is intentionally not a slash command, as slash commands have the extra "user used this" UI which doesn't look like the bot said it.
-@bot.command(name="say")
-async def _say(interaction, *, args):
-    if interaction.author.id == FRENCH:
-        await interaction.send(":x: You aren't allowed to use this command.")
-        await interaction.message.delete()
-    else:
-      await interaction.send(args)
-      await interaction.message.delete()
+@bot.slash_command(name="say", description="Use the bot to say messages!")
+async def _say(interaction, message: discord.Option(str, description="Message for the bot to say")):
+      await interaction.response.send_message("Message has been sent!", ephemeral=True)
+      await interaction.send(message)
 
 @bot.slash_command(name="ephemeral", description="Sends an ephemeral message to yourself!")
 async def ephemeral(interaction, text):
