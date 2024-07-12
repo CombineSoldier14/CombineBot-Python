@@ -220,12 +220,11 @@ async def about(interaction):
     
 
 
-# say is intentionally not a slash command.
-#The french people joke is an inside joke with my friends. I'm not racist! :)
+# say is intentionally not a slash command, as slash commands have the extra "user used this" UI which doesn't look like the bot said it.
 @bot.command(name="say")
 async def _say(interaction, *, args):
     if interaction.author.id == FRENCH:
-        await interaction.send("\n> *:middle_finger: \"You can go fuck yourself with that!*\" -Brewstew")
+        await interaction.send(":x: You aren't allowed to use this command.")
         await interaction.message.delete()
     else:
       await interaction.send(args)
