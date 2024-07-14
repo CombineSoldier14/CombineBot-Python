@@ -114,7 +114,7 @@ class Moderation(commands.Cog):
     @group.command(name="channelid", description="Get the ID of the channel you're currently in!")
     async def channelid(self, interaction, channel: discord.Option(discord.TextChannel, description="Channel to get ID of.")):
        await interaction.response.send_message("That channel's ID is **{}**".format(str(channel.id)))
-#the poll command is commented out because due to library issues on my pi it doesn't work right now. soon, it will be added.
+
     @group.command(name="poll", description="Creates a votable poll!")
     async def poll(self, interaction,
                    multiselect: discord.Option(str, description="Allow users to select multiple answers?", choices=["True", "False"]),
