@@ -62,7 +62,7 @@ class Moderation(commands.Cog):
     @commands.has_permissions(read_message_history = True)
     async def purge(self, interaction, number: discord.Option(int, description="Number of messages to purge. Max is 100", required=True)):
        await interaction.channel.purge(limit=number)
-       await interaction.response.send_message("**" + str(number) + "** messages have been purged!")
+       await interaction.response.send_message("**" + str(number) + "** messages have been purged!", ephemeral=True)
 
 
     @group.command(name="timeout", description="Timeout a user.")
