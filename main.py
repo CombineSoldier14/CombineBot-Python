@@ -197,10 +197,6 @@ async def ping(interaction):
 async def helloworld(interaction):
     await interaction.response.send_message("Hello world!")
 
-@bot.slash_command(name="traceback", description="Sends an error traceback for testing")
-async def tracebackerror(interaction):
-    await interaction.response.send_message(skibidi)
-
 
 
 
