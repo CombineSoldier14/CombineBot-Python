@@ -244,7 +244,7 @@ class Apis(commands.Cog):
            await interaction.defer()
            request = requests.get("https://api.dictionaryapi.dev/api/v2/entries/en/{}".format(word))
            if request.status_code == 404:
-                 await ctx.response.send_message(":x: Word \"**{}**\" not found! Perhaps you misspelled it?".format(word))
+                 await interaction.response.send_message(":x: Word \"**{}**\" not found! Perhaps you misspelled it?".format(word))
                  return
                   
            response = json.loads(request.text)
