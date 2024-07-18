@@ -198,7 +198,7 @@ async def helloworld(interaction):
 
 @bot.slash_command(name="traceback", description="Sends an error traceback for testing")
 async def traceback(interaction):
-            await interaction.response.send_message(This_will_be_an_error!)
+    await interaction.response.send_message(skibidi)
 
 
 
