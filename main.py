@@ -16,6 +16,7 @@ import nltk
 import random
 import traceback
 import cogs.combinebot
+import requests
 
 
 with open("version.json", "r") as f:
