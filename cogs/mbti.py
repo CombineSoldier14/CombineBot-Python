@@ -62,39 +62,18 @@ class Mbti(commands.Cog):
     
 
     @group.command(name="mostmbti", description="A command to find what the most (blank) MBTI is!")
-    async def mostmbti(self, interaction, most1: discord.Option(str, description="The first option to find what the most (blank) (blank) MBTI is!", choices=["introverted", "extroverted", "intuitive", "sensing", "thinking", "feeling", "perceiving", "judging"]), most2: discord.Option(str, description="The second option to find what the most (blank) (blank) MBTI is!", choices=["introvert", "extrovert", "intuitive", "senser", "thinker", "feeler", "perceiver", "judger"])):
+    async def mostmbti(self, interaction, most1: discord.Option(str, description="The first option to find what the most (blank) (blank) MBTI is!", choices=["introverted", "extroverted", "intuitive", "sensing", "thinking", "feeling", "perceiving", "judging"]), most2: discord.Option(str, description="The second option to find what the most (blank) (blank) MBTI is!", choices=["introvert", "extrovert", "intuitive", "sensor", "thinker", "feeler", "perceiver", "judger"])):
         mbti = "undefined"
         
         with open("assets/mostmbti.json", "r") as f:
             data = json.load(f)["combinations"]
 
         for entry in data:
-            if entry["most1"] == most1 and entry["most2"] == most2:
+            if entry["most1"] == most1 and entry["most2"] if most2 == most2:
                 mbti = entry["mbti"]
-
         
-
-
-        
-
-        
-
-        
-
-        
-
         await interaction.response.send_message("The most {0} {1} is **{2}**".format(most1, most2, mbti))
         
-
-
-
-
-     
-
-
-
-    
-     
 
 
 def setup(bot): # this is called by Pycord to setup the cog
