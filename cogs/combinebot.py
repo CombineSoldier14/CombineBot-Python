@@ -321,8 +321,7 @@ def remove_html_entities(text):
 async def changeStatus(bot):
         botinfo = getBotInfo()
         for status in statuses:
-         print("lol")
-        
+    
          activity = discord.ActivityType.unknown
          if status["type"] == "PLAYING":
             activity = discord.ActivityType.playing
@@ -333,66 +332,4 @@ async def changeStatus(bot):
 
          real_activity = discord.Activity(type=activity, name=status['status'])
          await bot.change_presence(activity=real_activity)
-         await asyncio.sleep(30)
-         
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+         await asyncio.sleep(getBotInfo()["ROTATING_STATUS_INTERVAL"])
