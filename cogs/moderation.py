@@ -82,7 +82,8 @@ class Moderation(commands.Cog):
 
     @group.command(name="createchannel", description="Creates a basic text channel")
     @commands.has_permissions(manage_channels=True)
-    async def createchannel(self, interaction, name: discord.Option(str, description="Name of channel"), guild: discord.Option(discord.Guild, description="Name of server to make channel in. Case sensitive!")):
+    async def createchannel(self, interaction, name: discord.Option(str, description="Name of channel")):
+        guild = interaction.guild
         await guild.create_text_channel('{0}'.format(name))
         await interaction.response.send_message("The channel **#{0}** has been created!".format(name))
 
