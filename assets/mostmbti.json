@@ -1,0 +1,324 @@
+{
+    "combinations": [
+        {
+            "most1": "introverted",
+            "most2": "introvert",
+            "mbti": "INTJ"
+        },
+        {
+            "most1": "introverted",
+            "most2": "extrovert",
+            "mbti": "ENTP"
+        },
+        {
+            "most1": "introverted",
+            "most2": "intuitive",
+            "mbti": "INTJ"
+        },
+        {
+            "most1": "introverted",
+            "most2": "senser",
+            "mbti": "ISTP"
+        },
+        {
+            "most1": "introverted",
+            "most2": "thinker",
+            "mbti": "INTJ"
+        },
+        {
+            "most1": "introverted",
+            "most2": "feeler",
+            "mbti": "INFP"
+        },
+        {
+            "most1": "introverted",
+            "most2": "perceiver",
+            "mbti": "INTP"
+        },
+        {
+            "most1": "introverted",
+            "most2": "judger",
+            "mbti": "INTJ"
+        },
+        {
+            "most1": "extroverted",
+            "most2": "introvert",
+            "mbti": "INFJ"
+        },
+        {
+            "most1": "extroverted",
+            "most2": "extrovert",
+            "mbti": "ESTP"
+        },
+        {
+            "most1": "extroverted",
+            "most2": "intuitive",
+            "mbti": "ENFJ"
+        },
+        {
+            "most1": "extroverted",
+            "most2": "senser",
+            "mbti": "ESTP"
+        },
+        {
+            "most1": "extroverted",
+            "most2": "thinker",
+            "mbti": "ESTP"
+        },
+        {
+            "most1": "extroverted",
+            "most2": "feeler",
+            "mbti": "ESFP"
+        },
+        {
+            "most1": "extroverted",
+            "most2": "perceiver",
+            "mbti": "ESTP"
+        },
+        {
+            "most1": "extroverted",
+            "most2": "judger",
+            "mbti": "ENFJ"
+        },
+        {
+            "most1": "intuitive",
+            "most2": "introvert",
+            "mbti": "INFJ"
+        },
+        {
+            "most1": "intuitive",
+            "most2": "extrovert",
+            "mbti": "ENTP"
+        },
+        {
+            "most1": "intuitive",
+            "most2": "intuitive",
+            "mbti": "INFJ"
+        },
+        {
+            "most1": "intuitive",
+            "most2": "senser",
+            "mbti": "ISTP"
+        },
+        {
+            "most1": "intuitive",
+            "most2": "thinker",
+            "mbti": "INTP"
+        },
+        {
+            "most1": "intuitive",
+            "most2": "feeler",
+            "mbti": "INFJ"
+        },
+        {
+            "most1": "intuitive",
+            "most2": "perceiver",
+            "mbti": "INTP"
+        },
+        {
+            "most1": "intuitive",
+            "most2": "judger",
+            "mbti": "INFJ"
+        },
+        {
+            "most1": "sensing",
+            "most2": "introvert",
+            "mbti": "ISTJ"
+        },
+        {
+            "most1": "sensing",
+            "most2": "extrovert",
+            "mbti": "ESTP"
+        },
+        {
+            "most1": "sensing",
+            "most2": "intuitive",
+            "mbti": "ENTJ"
+        },
+        {
+            "most1": "sensing",
+            "most2": "senser",
+            "mbti": "ESTP"
+        },
+        {
+            "most1": "sensing",
+            "most2": "thinker",
+            "mbti": "ESTP"
+        },
+        {
+            "most1": "sensing",
+            "most2": "feeler",
+            "mbti": "ESFP"
+        },
+        {
+            "most1": "sensing",
+            "most2": "perceiver",
+            "mbti": "ESTP"
+        },
+        {
+            "most1": "sensing",
+            "most2": "judger",
+            "mbti": "ISTJ"
+        },
+        {
+            "most1": "thinking",
+            "most2": "introvert",
+            "mbti": "INTP"
+        },
+        {
+            "most1": "thinking",
+            "most2": "extrovert",
+            "mbti": "ENTJ"
+        },
+        {
+            "most1": "thinking",
+            "most2": "intuitive",
+            "mbti": "INTP"
+        },
+        {
+            "most1": "thinking",
+            "most2": "senser",
+            "mbti": "ISTJ"
+        },
+        {
+            "most1": "thinking",
+            "most2": "thinker",
+            "mbti": "INTP"
+        },
+        {
+            "most1": "thinking",
+            "most2": "feeler",
+            "mbti": "INFJ"
+        },
+        {
+            "most1": "thinking",
+            "most2": "perceiver",
+            "mbti": "INTP"
+        },
+        {
+            "most1": "thinking",
+            "most2": "judger",
+            "mbti": "INTJ"
+        },
+        {
+            "most1": "feeling",
+            "most2": "introvert",
+            "mbti": "ISFJ"
+        },
+        {
+            "most1": "feeling",
+            "most2": "extrovert",
+            "mbti": "ESFP"
+        },
+        {
+            "most1": "feeling",
+            "most2": "intuitive",
+            "mbti": "INFP"
+        },
+        {
+            "most1": "feeling",
+            "most2": "senser",
+            "mbti": "ESFP"
+        },
+        {
+            "most1": "feeling",
+            "most2": "thinker",
+            "mbti": "ESTP"
+        },
+        {
+            "most1": "feeling",
+            "most2": "feeler",
+            "mbti": "ESFP"
+        },
+        {
+            "most1": "feeling",
+            "most2": "perceiver",
+            "mbti": "ESFP"
+        },
+        {
+            "most1": "feeling",
+            "most2": "judger",
+            "mbti": "ENFJ"
+        },
+        {
+            "most1": "perceiving",
+            "most2": "introvert",
+            "mbti": "INTP"
+        },
+        {
+            "most1": "perceiving",
+            "most2": "extrovert",
+            "mbti": "ESFP"
+        },
+        {
+            "most1": "perceiving",
+            "most2": "intuitive",
+            "mbti": "INTP"
+        },
+        {
+            "most1": "perceiving",
+            "most2": "senser",
+            "mbti": "ESFP"
+        },
+        {
+            "most1": "perceiving",
+            "most2": "thinker",
+            "mbti": "INTP"
+        },
+        {
+            "most1": "perceiving",
+            "most2": "feeler",
+            "mbti": "ESFP"
+        },
+        {
+            "most1": "perceiving",
+            "most2": "perceiver",
+            "mbti": "ESFP"
+        },
+        {
+            "most1": "perceiving",
+            "most2": "judger",
+            "mbti": "ENFJ"
+        },
+        {
+            "most1": "judging",
+            "most2": "introvert",
+            "mbti": "INTJ"
+        },
+        {
+            "most1": "judging",
+            "most2": "extrovert",
+            "mbti": "ENTJ"
+        },
+        {
+            "most1": "judging",
+            "most2": "intuitive",
+            "mbti": "ENTJ"
+        },
+        {
+            "most1": "judging",
+            "most2": "senser",
+            "mbti": "ESTJ"
+        },
+        {
+            "most1": "judging",
+            "most2": "thinker",
+            "mbti": "INTJ"
+        },
+        {
+            "most1": "judging",
+            "most2": "feeler",
+            "mbti": "ESFJ"
+        },
+        {
+            "most1": "judging",
+            "most2": "perceiver",
+            "mbti": "ISFP"
+        },
+        {
+            "most1": "judging",
+            "most2": "judger",
+            "mbti": "ENTJ"
+        }
+    ]
+}
