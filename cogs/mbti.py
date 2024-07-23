@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import os
 import json
+from cogs.lists import mostmbtis
 import cogs.combinebot
 from cogs.combinebot import name
 from cogs.combinebot import game
@@ -62,213 +63,10 @@ class Mbti(commands.Cog):
     
 
     @group.command(name="mostmbti", description="A command to find what the most (blank) MBTI is!")
-    async def mostmbti(self, interaction, most1: discord.Option(str, description="The first option to find what the most (blank) (blank) MBTI is!", choices=["introverted", "extroverted", "intuitive", "sensing", "thinking", "feeling", "perceiving", "judging"]), most2: discord.Option(str, description="The second option to find what the most (blank) (blank) MBTI is!", choices=["introvert", "extrovert", "intuitive", "senser", "thinker", "feeler", "perceiver", "judger"])):
-        mbti = "undefined"
-        
-        if most1 == "introverted" and most2 == "introvert":
-            mbti = "INTJ"
-
-        if most1 == "introverted" and most2 == "extrovert":
-            mbti = "ENFP"
-
-        if most1 == "introverted" and most2 == "intuitive":
-            mbti = "INTJ"
-
-        if most1 == "introverted" and most2 == "senser":
-            mbti = "ISTP"
-
-        if most1 == "introverted" and most2 == "thinker":
-            mbti = "INTJ"
-
-        if most1 == "introverted" and most2 == "feeler":
-            mbti = "INFP"
-
-        if most1 == "introverted" and most2 == "perceiver":
-            mbti = "INTP"
-
-        if most1 == "introverted" and most2 == "judger":
-            mbti = "INTJ"
-
-        if most1 == "extroverted" and most2 == "introvert":
-            mbti = "INFJ"
-
-        if most1 == "extroverted" and most2 == "extrovert":
-            mbti = "ESTP"
-
-        if most1 == "extroverted" and most2 == "intuitive":
-            mbti = "ENFJ"
-
-        if most1 == "extroverted" and most2 == "senser":
-            mbti = "ESTP"
-
-        if most1 == "extroverted" and most2 == "thinker":
-            mbti = "ESTP"
-
-        if most1 == "extroverted" and most2 == "feeler":
-            mbti = "ESFP"
-
-        if most1 == "extroverted" and most2 == "perceiver":
-            mbti = "ESTP"
-
-        if most1 == "extroverted" and most2 == "judger":
-            mbti = "ENFJ"
-
-        if most1 == "intuitive" and most2 == "introvert":
-            mbti = "INFJ"
-
-        if most1 == "intuitive" and most2 == "extrovert":
-            mbti = "ENTP"
-
-        if most1 == "intuitive" and most2 == "intuitive":
-            mbti = "INFJ"
-
-        if most1 == "intuitive" and most2 == "senser":
-            mbti = "ISTP"
-
-        if most1 == "intuitive" and most2 == "thinker":
-            mbti = "INTP"
-
-        if most1 == "intuitive" and most2 == "feeler":
-            mbti = "INFJ"
-
-        if most1 == "intuitive" and most2 == "perceiver":
-            mbti = "INTP"
-
-        if most1 == "intuitive" and most2 == "judger":
-            mbti = "INFJ"
-
-        if most1 == "sensing" and most2 == "introvert":
-            mbti = "ISTJ"
-
-        if most1 == "sensing" and most2 == "extrovert":
-            mbti = "ESTP"
-
-        if most1 == "sensing" and most2 == "intuitive":
-            mbti = "ENTJ"
-
-        if most1 == "sensing" and most2 == "senser":
-            mbti = "ESTP"
-
-        if most1 == "sensing" and most2 == "thinker":
-            mbti = "ESTP"
-
-        if most1 == "sensing" and most2 == "feeler":
-            mbti = "ESFP"
-
-        if most1 == "sensing" and most2 == "perceiver":
-            mbti = "ESTP"
-
-        if most1 == "sensing" and most2 == "judger":
-            mbti = "ISTJ"
-
-        if most1 == "thinking" and most2 == "introvert":
-            mbti = "INTP"
-
-        if most1 == "thinking" and most2 == "extrovert":
-            mbti = "ENTJ"
-
-        if most1 == "thinking" and most2 == "intuitive":
-            mbti = "INTP"
-
-        if most1 == "thinking" and most2 == "senser":
-            mbti = "ISTJ"
-
-        if most1 == "thinking" and most2 == "thinker":
-            mbti = "INTP"
-
-        if most1 == "thinking" and most2 == "feeler":
-            mbti = "INFJ"
-
-        if most1 == "thinking" and most2 == "perceiver":
-            mbti = "INTP"
-
-        if most1 == "thinking" and most2 == "judger":
-            mbti = "INTJ"
-
-        if most1 == "feeling" and most2 == "introvert":
-            mbti = "ISFJ"
-
-        if most1 == "feeling" and most2 == "extrovert":
-            mbti = "ESFP"
-
-        if most1 == "feeling" and most2 == "intuitive":
-            mbti = "INFP"
-
-        if most1 == "feeling" and most2 == "senser":
-            mbti = "ESFP"
-
-        if most1 == "feeling" and most2 == "thinker":
-            mbti = "ESTP"
-
-        if most1 == "feeling" and most2 == "feeler":
-            mbti = "ESFP"
-
-        if most1 == "feeling" and most2 == "perceiver":
-            mbti = "ESFP"
-
-        if most1 == "feeling" and most2 == "judger":
-            mbti = "ENFJ"
-
-        if most1 == "perceiving" and most2 == "introvert":
-            mbti = "INTP"
-
-        if most1 == "perceiving" and most2 == "extrovert":
-            mbti = "ESFP"
-
-        if most1 == "perceiving" and most2 == "intuitive":
-            mbti = "INTP"
-
-        if most1 == "perceiving" and most2 == "senser":
-            mbti = "ESFP"
-
-        if most1 == "perceiving" and most2 == "thinker":
-            mbti = "INTP"
-
-        if most1 == "perceiving" and most2 == "feeler":
-            mbti = "ESFP"
-
-        if most1 == "perceiving" and most2 == "perceiver":
-            mbti = "ESFP"
-
-        if most1 == "perceiving" and most2 == "judger":
-            mbti = "ENFJ"
-
-        if most1 == "judging" and most2 == "introvert":
-            mbti = "INTJ"
-
-        if most1 == "judging" and most2 == "extrovert":
-            mbti = "ENTJ"
-
-        if most1 == "judging" and most2 == "intuitive":
-            mbti = "ENTJ"
-
-        if most1 == "judging" and most2 == "senser":
-            mbti = "ESTJ"
-
-        if most1 == "judging" and most2 == "thinker":
-            mbti = "INTJ"
-
-        if most1 == "judging" and most2 == "feeler":
-            mbti = "ESFJ"
-
-        if most1 == "judging" and most2 == "perceiver":
-            mbti = "ISFP"
-
-        if most1 == "judging" and most2 == "judger":
-            mbti = "ENTJ"
-
-
-        
-
-
-        
-
-        
-
-        
-
-        
-
+    async def mostmbti(self, interaction, 
+                       most1: discord.Option(str, description="The first option to find what the most (blank) (blank) MBTI is!", choices=["introverted", "extroverted", "intuitive", "sensing", "thinking", "feeling", "perceiving", "judging"]), 
+                       most2: discord.Option(str, description="The second option to find what the most (blank) (blank) MBTI is!", choices=["introvert", "extrovert", "intuitive", "senser", "thinker", "feeler", "perceiver", "judger"])):
+        mbti = mostmbtis[most1][most2]
         await interaction.response.send_message("The most {0} {1} is **{2}**".format(most1, most2, mbti))
         
 
@@ -285,4 +83,5 @@ class Mbti(commands.Cog):
 
 def setup(bot): # this is called by Pycord to setup the cog
     bot.add_cog(Mbti(bot)) # add the cog to the bot
+
 
