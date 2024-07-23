@@ -30,5 +30,7 @@ Anyone can add CombineBot to their server on [CombineBot's webpage](https://comb
 **Credit to [AlphaGameDeveloper](https://github.com/AlphaGameDeveloper) for helping me out with some of the code.  His bot can be found [here](https://github.com/AlphaGameDeveloper/AlphaGameBot).**
 
 [CombineBot FAQ](http://www.combinesoldier14.site/p/ultrabot-links-faq.html)
+
 [Terms of Service](https://combinebot.blogspot.com/p/combinebot-terms-of-service.html)
+
 [Privacy Policy](https://combinebot.blogspot.com/p/combinebot-privacy-policy.html)
