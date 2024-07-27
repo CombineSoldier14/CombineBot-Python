@@ -144,31 +144,31 @@ class Moderation(commands.Cog):
                    answer9: discord.Option(str, description="Answer for the poll", required=False),
                    answer10: discord.Option(str, description="Answer for the poll", required=False)
                    ):
-       answerslist = [answer1, answer2]
+       answerslist = [discord.PollAnswer(answer1), discord.PollAnswer(answer2)]
 
        if answer3 != None:
-          answerslist.append(answer3)
+          answerslist.append(discord.PollAnswer(answer3))
 
        if answer4 != None:
-          answerslist.append(answer4)
+          answerslist.append(discord.PollAnswer(answer4))
 
        if answer5 != None:
-          answerslist.append(answer5)
+          answerslist.append(discord.PollAnswer(answer5))
 
        if answer6 != None:
-          answerslist.append(answer6)
+          answerslist.append(discord.PollAnswer(answer6))
 
        if answer7 != None:
-          answerslist.append(answer7)
+          answerslist.append(discord.PollAnswer(answer7))
 
        if answer8 != None:
-          answerslist.append(answer8)
+          answerslist.append(discord.PollAnswer(answer8))
 
        if answer9 != None:
-          answerslist.append(answer9)
+          answerslist.append(discord.PollAnswer(answer9))
 
        if answer10 != None:
-          answerslist.append(answer10)
+          answerslist.append(discord.PollAnswer(answer10))
        
        if multiselects == "True":
           multiselects = True
@@ -176,7 +176,7 @@ class Moderation(commands.Cog):
           multiselects = False
        
        poll = discord.Poll(
-          question=question,
+          question=discord.PollMedia(question),
           answers=answerslist,
           duration=duration,
           allow_multiselect=multiselects
