@@ -179,7 +179,7 @@ class Moderation(commands.Cog):
           question=question,
           answers=answerslist,
           duration=duration,
-          allow_multiselect=multiselect
+          allow_multiselect=multiselects
 
        )
        await interaction.response.send_message(poll=poll)
