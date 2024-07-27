@@ -129,7 +129,7 @@ class Moderation(commands.Cog):
        await interaction.response.send_message("That channel's ID is **{}**".format(str(channel.id)))
 
     @group.command(name="poll", description="Creates a votable poll!")
-    async def poll(self, interaction,
+    async def poll(self, ctx,
                    multiselects: discord.Option(str, description="Allow users to select multiple answers?", choices=["True", "False"]),
                    duration: discord.Option(int, description="Number of hours that the poll will expire"),
                    question: discord.Option(str, description="Question of poll"),
@@ -182,7 +182,7 @@ class Moderation(commands.Cog):
           allow_multiselect=multiselects
 
        )
-       await interaction.response.send_message(poll=poll)
+       await ctx.respond(poll=poll)
        
 
     
