@@ -19,6 +19,7 @@ import time
 import json
 import uuid
 import string
+from requests.utils import requote_uri
 import random
 import time
 import cogs.requestHandler as handler
@@ -334,65 +335,7 @@ async def changeStatus(bot):
          real_activity = discord.Activity(type=activity, name=status['status'])
          await bot.change_presence(activity=real_activity)
          await asyncio.sleep(30)
-         
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+def getCatText(text: str, font_size: int, font_color: str):
+        r = "https://cataas.com/cat/says/{0}?fontSize={1}&fontColor={2}".format(text, str(font_size), font_color)
+        return requote_uri(r)
