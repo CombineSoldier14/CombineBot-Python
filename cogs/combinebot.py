@@ -120,7 +120,7 @@ def getYTvideo():
         return "https://www.youtube.com/watch?v={}".format(videoid)
 
 def getDNDmod(mod):
-        d = requests.get("https://www.dnd5eapi.co/api/ability-scores/{}".format(mod.lower()))
+        d = handler.get("https://www.dnd5eapi.co/api/ability-scores/{}".format(mod.lower()))
         j = json.loads(d.text)
         return j
 
@@ -135,7 +135,7 @@ def getXKCDRecent():
         return xkcdjson
 
 def getXKCD(number=random.randint(1, 2949)):
-        r = requests.get("https://xkcd.com/{}/info.0.json".format(str(number)))
+        r = handler.get("https://xkcd.com/{}/info.0.json".format(str(number)))
         if requests.status_codes == 404:
                 return ":x: Comic number not found"
         else:
@@ -182,7 +182,7 @@ def shortenURL(url):
         return jurl["short"]
 
 def getWeather(city):
-        request = requests.get("https://goweather.herokuapp.com/weather/{0}".format(city))
+        request = handler.get("https://goweather.herokuapp.com/weather/{0}".format(city))
         response = json.loads(request.text)
         if request.status_code == 404:
           return ":x: City not found! Maybe you misspelt it?"
@@ -190,7 +190,7 @@ def getWeather(city):
           return response
 
 def getPoke(pokemon, interaction=discord.Interaction):
-        request = requests.get("https://pokeapi.co/api/v2/pokemon/{0}".format(pokemon.lower()))
+        request = handler.get("https://pokeapi.co/api/v2/pokemon/{0}".format(pokemon.lower()))
            
         if request.status_code == 404:
                   return ":x: Pokemon not found! Maybe you misspelled it?"
@@ -201,12 +201,12 @@ def getPoke(pokemon, interaction=discord.Interaction):
         return response 
 
 def getPerson():
-         request = requests.get("https://randomuser.me/api/")
+         request = handler.get("https://randomuser.me/api/")
          response = json.loads(request.text)
          return response    
 
 def getBible(book, chapter, verse):
-        request = requests.get("https://bible-api.com/{0}%20{1}:{2}".format(book, chapter, verse))
+        request = handler.get("https://bible-api.com/{0}%20{1}:{2}".format(book, chapter, verse))
         if request.status_code == 404:
                   return ":x: Book/Chapter/Verse not found!"
         response = json.loads(request.text)
@@ -308,7 +308,7 @@ def getTrivia(category=str, difficulty=str):
                 categoryint = "32"
         url = "https://opentdb.com/api.php?amount=4&category={0}&difficulty={1}&type=multiple".format(categoryint, difficulty)
        
-        r = requests.get(url)
+        r = handler.get(url)
         j = json.loads(r.text)
         return j
 
@@ -339,3 +339,8 @@ async def changeStatus(bot):
 def getCatText(text: str, font_size: int, font_color: str):
         r = "https://cataas.com/cat/says/{0}?fontSize={1}&fontColor={2}".format(text, str(font_size), font_color)
         return requote_uri(r)
+
+def getUrban(term):
+        r = handler.get(requote_uri("https://unofficialurbandictionaryapi.com/api/search?term={}&strict=false&matchCase=false&limit=1&page=1&multiPage=false&".format(term)))
+        j = json.loads(r.text)
+        return j
