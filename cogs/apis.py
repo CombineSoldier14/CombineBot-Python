@@ -197,7 +197,7 @@ class Apis(commands.Cog):
     @group.command(name="httpanimal", description="Get an animal image for an HTTP status code!")
     async def httpdog(self, interaction, animal: discord.Option(str, description="The animal to get the HTTP image of.", choices=["Dog", "Cat"]), 
                                  status: discord.Option(str, description="The HTTP status code to get image of.")):
-           rurl = requests.get("https://http.{0}/{1}.jpg".format(animal.lower(), status))
+           rurl = handler.get("https://http.{0}/{1}.jpg".format(animal.lower(), status))
            if rurl.status_code == 404:
                   await interaction.response.send_message(":x: {} not found! That status code does not exist.".format(animal))
                   return
@@ -242,7 +242,7 @@ class Apis(commands.Cog):
     @group.command(name="dictionary", description="Get the definition of an english word!")
     async def dictionary(self, interaction, word: discord.Option(str, description="Word to get definition of")):
            await interaction.defer()
-           request = requests.get("https://api.dictionaryapi.dev/api/v2/entries/en/{}".format(word))
+           request = handler.get("https://api.dictionaryapi.dev/api/v2/entries/en/{}".format(word))
            if request.status_code == 404:
                  await interaction.response.send_message(":x: Word \"**{}**\" not found! Perhaps you misspelled it?".format(word))
                  return
@@ -412,6 +412,32 @@ class Apis(commands.Cog):
                 title="Cat"
           )
           embed.set_image(url=cat)
+          await interaction.response.send_message(embed=embed)
+
+    @group.command(name="urbandictionary", description="Search for a word on Urban Dictionary!")
+    async def urbandictionary(self, interaction, 
+                              term: discord.Option(str, description="Term to search for.")):
+          char_limit = 1024
+          j = cogs.combinebot.getUrban(term=term)
+          if j["statusCode"] == 404:
+                await interaction.response.send_message(":x: Term **\"{}\"** not found!".format(term))
+                return
+          j = j["data"][0]
+          meaning = j["meaning"]
+          example = j["example"]
+          if len(meaning) > char_limit:
+                meaning = meaning[:1021] + "..."
+          if len(example) > char_limit:
+                example = example[:1021] + "..."
+                
+          embed = cogs.combinebot.makeEmbed(
+                title="Search for \"{}\"".format(term),
+                color=discord.Colour.blurple()
+          )
+          embed.add_field(name="Definition", value=meaning)
+          embed.add_field(name="Examples", value=example)
+          embed.set_footer(text="Contributed by {0} on {1}".format(j["contributor"], j["date"]))
+          embed.set_thumbnail(url="https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2018-01-11/297387706245_85899a44216ce1604c93_512.jpg")
           await interaction.response.send_message(embed=embed)
                 
            
