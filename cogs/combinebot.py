@@ -56,7 +56,7 @@ if dev_status == "true":
 if dev_status == "false":
             name = "CombineBot"
             game = "https://combinebot.blogspot.com/"
-            icon = "https://i.postimg.cc/j5YGqs0n/f66bd4beb4f1ebee0685d8c5cfd646bb.png"
+            icon = "https://cdn.discordapp.com/avatars/1225220764861730867/b723788516e7b5ee39ec1090ae87d92e.png?size=1024"
             prefix = ";"
 
 def getBotInfo():
