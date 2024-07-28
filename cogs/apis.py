@@ -399,14 +399,25 @@ class Apis(commands.Cog):
                       await interaction.followup.send("Correct answer was **{}**.".format(response["correct_answer"]))
                 elif label4 == response["correct_answer"]:
                       await interaction.followup.send(":white_check_mark: Correct answer!")  
-          embed=cogs.combinebot.makeEmbed(description=titlequestion, color=discord.Color.blurple())
-          await interaction.response.send_message(embed=embed, view=QuestionView())
+                embed=cogs.combinebot.makeEmbed(description=titlequestion, color=discord.Color.blurple())
+                await interaction.response.send_message(embed=embed, view=QuestionView())
+
+    @group.command(name="cattext", description="Put text on a random image of a cat!")
+    async def cattext(self, interaction, 
+                      text: discord.Option(str, description="Text to put on the cat image"),
+                      font_size: discord.Option(int, description="Font size of the text"),
+                      font_color: discord.Option(str, description="Font color of text.")):
+          cat = cogs.combinebot.getCatText(text=text, font_size=font_size, font_color=font_color)
+          embed = cogs.combinebot.makeEmbed(
+                title="Cat"
+          )
+          embed.set_image(url=cat)
+          await interaction.response.send_message(embed=embed)
                 
            
 
            
                   
 
-def setup(bot): # this is called by Pycord to setup the co
+def setup(bot): # this is called by Pycord to setup the cog
     bot.add_cog(Apis(bot)) # add the cog to the bot
-
