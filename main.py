@@ -47,7 +47,7 @@ if dev_status == "true":
 if dev_status == "false":
             name = "CombineBot"
             game = "https://combinebot.blogspot.com/"
-            icon = "https://cdn.discordapp.com/avatars/1225220764861730867/b723788516e7b5ee39ec1090ae87d92e.png?size=1024"
+            icon = "https://i.postimg.cc/wjgpb7bb/image-1.png"
             prefix = ";"
             link = "https://discord.com/oauth2/authorize?client_id=1225220764861730867"
 
