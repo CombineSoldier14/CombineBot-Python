@@ -240,7 +240,6 @@ async def _spoiler(interaction, text):
 
 @bot.slash_command(name="invite", description="Get the invite link for CombineBot!")
 async def invite(interaction):
-   await ctx.send(fuck)
    await interaction.response.send_message(view=InviteView())
 
 # AutoRun prevention with __name__
