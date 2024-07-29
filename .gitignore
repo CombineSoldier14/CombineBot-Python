@@ -1,5 +1,6 @@
 # ----- CUSTOM RULES -----
 token.json
+dev.json
 # ----- END CUSTOM RULES -----
 
 # Byte-compiled / optimized / DLL files
