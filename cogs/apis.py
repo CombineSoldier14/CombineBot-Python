@@ -439,7 +439,7 @@ class Apis(commands.Cog):
           embed.add_field(name="Examples", value=example)
           embed.set_footer(text="Contributed by {0} on {1}".format(j["contributor"], j["date"]))
           embed.set_thumbnail(url="https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2018-01-11/297387706245_85899a44216ce1604c93_512.jpg")
-          await interaction.response.send_message(embed=embed)
+          await interaction.send(embed=embed)
 
     @group.command(name="qrcode", description="Generate a QR code from a URL!")
     async def qrcode(self, interaction, 
