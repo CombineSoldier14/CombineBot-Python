@@ -1,4 +1,4 @@
-import discord
+iimport discord
 from discord.ext import commands
 import os
 import json
@@ -66,7 +66,7 @@ class Mbti(commands.Cog):
     async def mostmbti(self, interaction, 
                        most1: discord.Option(str, description="The first option to find what the most (blank) (blank) MBTI is!", choices=["introverted", "extroverted", "intuitive", "sensing", "thinking", "feeling", "perceiving", "judging"]), 
                        most2: discord.Option(str, description="The second option to find what the most (blank) (blank) MBTI is!", choices=["introvert", "extrovert", "intuitive", "senser", "thinker", "feeler", "perceiver", "judger"])):
-        mbti = mostmbtis[most1][most2]
+        mbti = mostmbtis[0][most1][most2]
         await interaction.response.send_message("The most {0} {1} is **{2}**".format(most1, most2, mbti))
         
 
