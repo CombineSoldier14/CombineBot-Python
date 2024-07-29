@@ -344,3 +344,6 @@ def getUrban(term):
         r = handler.get(requote_uri("https://unofficialurbandictionaryapi.com/api/search?term={}&strict=false&matchCase=false&limit=1&page=1&multiPage=false&".format(term)))
         j = json.loads(r.text)
         return j
+
+def getQRCode(url):
+        return "https://www.qrtag.net/api/qr_1024.png?url={}".format(url)
