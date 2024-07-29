@@ -439,6 +439,16 @@ class Apis(commands.Cog):
           embed.set_footer(text="Contributed by {0} on {1}".format(j["contributor"], j["date"]))
           embed.set_thumbnail(url="https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2018-01-11/297387706245_85899a44216ce1604c93_512.jpg")
           await interaction.response.send_message(embed=embed)
+
+    @group.command(name="qrcode", description="Generate a QR code from a URL!")
+    async def qrcode(self, interaction, 
+                     url: discord.Option(str, description="URL to make QR code out of. Must begin with http(s)://")):
+          qr = cogs.combinebot.getQRCode(url=url)
+          embed = cogs.combinebot.makeEmbed(
+                title="QR Code"
+          )
+          embed.set_image(url=qr)
+          await interaction.response.send_message(embed=embed)
                 
            
 
