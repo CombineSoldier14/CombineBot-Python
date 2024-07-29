@@ -111,9 +111,9 @@ class ProblemView(discord.ui.View):
 
    @discord.ui.button(label="Report Error to CombineSoldier14", style=discord.ButtonStyle.primary)
    async def errorbutton(self, Button: discord.ui.Button, interaction: discord.Interaction):
-        button.disabled = True
-        button.label = "Error Reported!"
-        await interaction.response.send_message("Your error has been submitted!")
+        Button.disabled = True
+        Button.label = "Error Reported!"
+        await interaction.response.edit_message(view=self)
         webhook = "https://discord.com/api/webhooks/1259298998301495379/R6zd6M4D2SQ_l2DfL-3vaEEBNBtU4XuZODbrWHnq0IR0Xj4IZcgvpvS2XrHMpr1YqHXD"
         requests.post(webhook, {
             "content": "{}".format("# Error Occurred!:\n`{0}`\nError: `{1}`".format(''.join(traceback.format_tb(self._error.__traceback__)), repr(self._error)))
