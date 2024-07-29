@@ -417,6 +417,7 @@ class Apis(commands.Cog):
     @group.command(name="urbandictionary", description="Search for a word on Urban Dictionary!")
     async def urbandictionary(self, interaction, 
                               term: discord.Option(str, description="Term to search for.")):
+          await interaction.defer()
           char_limit = 1024
           j = cogs.combinebot.getUrban(term=term)
           if j["statusCode"] == 404:
