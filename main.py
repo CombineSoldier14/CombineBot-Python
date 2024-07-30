@@ -157,10 +157,10 @@ class AboutLinkBloggerView(discord.ui.View):
      
     @discord.ui.button(label="Send Feedback!", style=discord.ButtonStyle.primary)
     async def feedback(self, button: discord.ui.Button, interaction: discord.Interaction):
+         await interaction.response.send_modal(FeedbackModal(title="Feedback on CombineBot", bot=self.bot))
          button.disabled = True
          button.label = "Feedback Sent!"
          await interaction.response.edit_message(view=self)
-         await interaction.response.send_modal(FeedbackModal(title="Feedback on CombineBot", bot=self.bot))
      
      
 
