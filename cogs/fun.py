@@ -68,6 +68,22 @@ class Fun(commands.Cog):
                 cogs.combinebot.getAceAttorneyQuote()
           )
 
+    @group.command(name="edgeworthcube", description="Roll the Edgeworth cube!")
+    #credit to u/TheFinkrat for making the edgey cubes
+    async def edgeworthcube(self, interaction):
+        imgs = [
+            "https://i.postimg.cc/HJhx1kxq/CRINGE.png",
+            "https://i.postimg.cc/DWZZNX2Q/FALSE.png",
+            "https://i.postimg.cc/JsK0KqW4/MAYBE.png",
+            "https://i.postimg.cc/gxGrv7QT/MISINFORMED.png"
+        ]
+        embed = cogs.combinebot.makeEmbed(
+            title="Edgeworth Cube",
+            color=discord.Colour.blurple()
+        )
+        embed.set_image(url=random.choice(imgs))
+        await interaction.response.send_message(embed=embed)
+        
+
 def setup(bot): # this is called by Pycord to setup the cog
     bot.add_cog(Fun(bot)) # add the cog to the bot
-
