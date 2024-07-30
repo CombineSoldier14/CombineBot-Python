@@ -116,7 +116,7 @@ class ProblemView(discord.ui.View):
         await interaction.response.edit_message(view=self)
         webhook = "https://discord.com/api/webhooks/1259298998301495379/R6zd6M4D2SQ_l2DfL-3vaEEBNBtU4XuZODbrWHnq0IR0Xj4IZcgvpvS2XrHMpr1YqHXD"
         requests.post(webhook, {
-            "content": "{}".format("# Error Occurred!:\n`{0}`\nError: `{1}`".format(''.join(traceback.format_tb(self._error.__traceback__)), repr(self._error)))
+            "content": "<@951639877768863754> {}".format("# Error Occurred!:\n`{0}`\nError: `{1}`".format(''.join(traceback.format_tb(self._error.__traceback__)), repr(self._error)))
         })
 
 
@@ -157,7 +157,9 @@ class AboutLinkBloggerView(discord.ui.View):
      
     @discord.ui.button(label="Send Feedback!", style=discord.ButtonStyle.primary)
     async def feedback(self, button: discord.ui.Button, interaction: discord.Interaction):
-         print("kjndwdiw")
+         Button.disabled = True
+         Button.label = "Feedback Sent!"
+         await interaction.response.edit_message(view=self)
          await interaction.response.send_modal(FeedbackModal(title="Feedback on CombineBot", bot=self.bot))
      
      
@@ -171,9 +173,10 @@ class FeedbackModal(discord.ui.Modal):
 
      async def callback(self, interaction: discord.Interaction):
            await interaction.response.send_message("Your feedback has been submitted to the bot's owner, **CombineSoldier14**!", ephemeral=True)
-           owner = self.bot.get_user(951639877768863754)
-           dm = await owner.create_dm()
-           await dm.send("Feedback submitted from {0} (`{1}`): *{2}*".format(interaction.user, interaction.user.id, self.children[0].value))
+           webhook = "https://discord.com/api/webhooks/1267920503218372658/ofmUN-GZl4oEOzeW1Rv-Cl9p0HLOC2cZjK1lZCSKhG-NYeKKO8NfdDmYHdeo4PVJcqLv"
+           requests.post(webhook, {
+            "content": "<@951639877768863754> Feedback submitted from {0} (`{1}`): *{2}*".format(interaction.user, interaction.user.id, self.children[0].value)
+           })
 
 
     
