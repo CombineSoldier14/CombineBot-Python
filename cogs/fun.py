@@ -75,7 +75,9 @@ class Fun(commands.Cog):
             "https://i.postimg.cc/HJhx1kxq/CRINGE.png",
             "https://i.postimg.cc/DWZZNX2Q/FALSE.png",
             "https://i.postimg.cc/JsK0KqW4/MAYBE.png",
-            "https://i.postimg.cc/gxGrv7QT/MISINFORMED.png"
+            "https://i.postimg.cc/gxGrv7QT/MISINFORMED.png",
+            "https://i.postimg.cc/XZnQ1vK3/TRUE.png",
+            "https://i.postimg.cc/18GvKFqJ/WTF.png"
         ]
         embed = cogs.combinebot.makeEmbed(
             title="Edgeworth Cube",
