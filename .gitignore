@@ -1,6 +1,7 @@
 # ----- CUSTOM RULES -----
 token.json
 dev.json
+sql-creds.json
 # ----- END CUSTOM RULES -----
 
 # Byte-compiled / optimized / DLL files
