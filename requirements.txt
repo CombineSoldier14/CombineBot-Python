@@ -6,3 +6,4 @@ mcstatus
 uuid
 feedparser
 pointercratepy
+mysql-connector-python
