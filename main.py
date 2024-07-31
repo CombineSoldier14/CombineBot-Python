@@ -82,6 +82,7 @@ bot.load_extension('cogs.dnd')
 bot.load_extension('cogs.cogfunctest')
 bot.load_extension('cogs.enneagramtest')
 bot.load_extension('cogs.mbtitest')
+bot.load_extension('cogs.standbattle')
 
 
 @tasks.loop(seconds=30)
@@ -261,9 +262,3 @@ if __name__ == "__main__": # import run prevention
         raise EnvironmentError("No token specified!  Please enter a token via token.json or by passing an environment variable called 'BOT_TOKEN'.  Stop.")
     BOT_TOKEN = (environToken if environToken != None else loadedJSONToken)    
     bot.run(BOT_TOKEN)
-
-
-
-
-
-
