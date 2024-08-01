@@ -36,7 +36,7 @@ with open("latestaddition.json", "r") as f:
             _r = json.load(f)
             LATESTADDITION = _r["LATEST_ADDITION"]
 
-with open("sql-creds-testing.json", "r") as f:
+with open("sql-creds.json", "r") as f:
             creds = json.load(f)
 
 cnx = mysql.connector.connect(user=creds["username"], password=creds["password"],
