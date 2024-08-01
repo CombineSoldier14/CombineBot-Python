@@ -27,6 +27,13 @@ with open("version.json", "r") as f:
             _r = json.load(f)
             VERSION = _r["VERSION"]
 
+with open("use_db.json", "r") as f:
+            _r = json.load(f)
+            use_db = _r["use_db"]
+if use_db == 0:
+        use_database = False
+else:
+        use_database = True
 
 with open("dev.json", "r") as f:
             _r = json.load(f)
@@ -38,11 +45,9 @@ with open("latestaddition.json", "r") as f:
 
 with open("sql-creds.json", "r") as f:
             creds = json.load(f)
-
-cnx = mysql.connector.connect(user=creds["username"], password=creds["password"],
-                              host=creds["host"],
-                              database=creds["database"])
-cursor = cnx.cursor()
+if use_database == True:
+             cnx = mysql.connector.connect(user=creds["username"], password=creds["password"], host=creds["host"], database=creds["database"])
+             cursor = cnx.cursor()
 #The Dev status is meant for if CombineBot is running in DEV mode which changes some names and icons.
 
 
@@ -102,25 +107,29 @@ async def rotateStatus():
 
 @bot.listen("on_application_command")
 async def on_application_command(ctx: discord.context.ApplicationContext):
-     cursor.execute("SELECT leveling_enabled FROM guild_settings WHERE guild_id = %s", [ctx.guild.id])
-     levelingenable = cursor.fetchone()
-     if levelingenable == 0:
-          return
-     cursor.execute("SELECT COUNT(*) FROM levels WHERE id = %s", [ctx.author.id])
-     r = cursor.fetchone()
-     if r == 0:
-          cursor.execute("INSERT INTO levels (id) values (%s)", [ctx.author.id])
+     if use_database == True:
+           cursor.execute("SELECT leveling_enabled FROM guild_settings WHERE guild_id = %s", [ctx.guild.id])
+           levelingenable = cursor.fetchone()
+           if levelingenable == 0:
+                return
+           cursor.execute("SELECT COUNT(*) FROM levels WHERE id = %s", [ctx.author.id])
+           r = cursor.fetchone()
+           if r == 0:
+                cursor.execute("INSERT INTO levels (id) values (%s)", [ctx.author.id])
+           else:
+                cursor.execute("UPDATE levels SET commands_ran = commands_ran + 1 WHERE id = %s;", [ctx.author.id])
+                cursor.execute("SELECT commands_ran FROM levels WHERE id = %s", [ctx.author.id])
+                n = cursor.fetchone()
+                for x in reversed(levels):
+                     if n[0] == x["commands_required"]:
+                          cursor.execute("UPDATE levels SET level = level + 1 WHERE id = %s;", [ctx.author.id])
+                          cursor.execute("SELECT level FROM levels WHERE id = %s", [ctx.author.id])
+                          newlevel = cursor.fetchone()
+                          cnx.commit()
+                          await ctx.channel.send("<@{0}> you have leveled up to {1}!".format(ctx.author.id, newlevel[0])) 
      else:
-          cursor.execute("UPDATE levels SET commands_ran = commands_ran + 1 WHERE id = %s;", [ctx.author.id])
-          cursor.execute("SELECT commands_ran FROM levels WHERE id = %s", [ctx.author.id])
-          n = cursor.fetchone()
-          for x in reversed(levels):
-               if n[0] == x["commands_required"]:
-                    cursor.execute("UPDATE levels SET level = level + 1 WHERE id = %s;", [ctx.author.id])
-                    cursor.execute("SELECT level FROM levels WHERE id = %s", [ctx.author.id])
-                    newlevel = cursor.fetchone()
-                    cnx.commit()
-                    await ctx.channel.send("<@{0}> you have leveled up to {1}!".format(ctx.author.id, newlevel[0]))
+                 return
+  
      
      
 
@@ -236,27 +245,30 @@ async def helloworld(interaction):
 
 @bot.slash_command(name="checklevel", description="Get your current level!")
 async def checklevel(interaction, user: discord.Option(discord.Member, description="User to get level of")):
-     cursor.execute("SELECT COUNT(*) FROM levels WHERE id = %s", [user.id])
-     status = cursor.fetchone()[0]
-     if status is None or status == 0:
-          level = 1
-          embed = cogs.combinebot.makeEmbed(
-             title="{}'s Level".format(user.name),
-             description="Their level is **{}**.\nYou can level up by running CombineBot commands!".format(str(level)),
-             color=discord.Color.blurple()
-          )   
-          embed.set_thumbnail(url=user.display_avatar)
-          await interaction.response.send_message(embed=embed)
-          return
-     cursor.execute("SELECT level from levels WHERE id = %s", [user.id])
-     level = cursor.fetchone()[0]
-     embed = cogs.combinebot.makeEmbed(
-          title="{}'s Level".format(user.name),
-          description="Your level is **{}**.\nYou can level up by running CombineBot commands!".format(str(level)),
-          color=discord.Color.blurple()
-     )
-     embed.set_thumbnail(url=user.display_avatar)
-     await interaction.response.send_message(embed=embed)
+     if use_database == True:
+       cursor.execute("SELECT COUNT(*) FROM levels WHERE id = %s", [user.id])
+       status = cursor.fetchone()[0]
+       if status is None or status == 0:
+              level = 1
+              embed = cogs.combinebot.makeEmbed(
+                 title="{}'s Level".format(user.name),
+                 description="Their level is **{}**.\nYou can level up by running CombineBot commands!".format(str(level)),
+                 color=discord.Color.blurple()
+              )   
+              embed.set_thumbnail(url=user.display_avatar)
+              await interaction.response.send_message(embed=embed)
+              return
+       cursor.execute("SELECT level from levels WHERE id = %s", [user.id])
+       level = cursor.fetchone()[0]
+       embed = cogs.combinebot.makeEmbed(
+            title="{}'s Level".format(user.name),
+            description="Your level is **{}**.\nYou can level up by running CombineBot commands!".format(str(level)),
+            color=discord.Color.blurple()
+       )  
+       embed.set_thumbnail(url=user.display_avatar)
+       await interaction.response.send_message(embed=embed)
+     else:
+           await interaction.response.send_message(":x: Database usage is currently disabled.")
 
 
 
@@ -280,24 +292,27 @@ async def about(interaction):
 @bot.slash_command(name="toggleleveling", description="A command for server owners to toggle leveling on/off.")
 @commands.has_permissions(administrator=True)
 async def disableleveling(interaction, leveling: discord.Option(bool, choices=[True, False])):
-     cursor = cnx.cursor()
-     if leveling == True:
-        cursor.execute("SELECT COUNT(*) FROM guild_settings WHERE guild_id = %s", [interaction.guild.id])
-        status = cursor.fetchone()
-        if status == 0 or status is None:
-             cursor.execute("INSERT INTO guild_settings (guild_id) values (%s)", [interaction.guild.id])
-             await interaction.response.send_message("Leveling is already enabled!")
-             return
-        else:
-             cursor.execute("UPDATE guild_settings SET leveling_enabled = 1 WHERE guild_id = %s;", [interaction.guild.id])
-             await interaction.response.send_message(":white_check_mark: Leveling is enabled on this server!")
-     if leveling == False:
-        cursor.execute("SELECT COUNT(*) FROM guild_settings WHERE guild_id = %s", [interaction.guild.id])
-        status = cursor.fetchone()
-        if status == 0 or status is None:
-             cursor.execute("INSERT INTO guild_settings (guild_id) values (%s)", [interaction.guild.id])
-        cursor.execute("UPDATE guild_settings SET leveling_enabled = 0 WHERE guild_id = %s;", [interaction.guild.id])
-        await interaction.response.send_message(":white_check_mark: Leveling is disabled on this server!")
+     if use_database == True:
+         cursor = cnx.cursor()
+         if leveling == True:
+            cursor.execute("SELECT COUNT(*) FROM guild_settings WHERE guild_id = %s", [interaction.guild.id])
+            status = cursor.fetchone()
+            if status == 0 or status is None:
+                 cursor.execute("INSERT INTO guild_settings (guild_id) values (%s)", [interaction.guild.id])
+                 await interaction.response.send_message("Leveling is already enabled!")
+                 return
+            else:
+                 cursor.execute("UPDATE guild_settings SET leveling_enabled = 1 WHERE guild_id = %s;", [interaction.guild.id])
+                 await interaction.response.send_message(":white_check_mark: Leveling is enabled on this server!")
+         if leveling == False:
+            cursor.execute("SELECT COUNT(*) FROM guild_settings WHERE guild_id = %s", [interaction.guild.id])
+            status = cursor.fetchone()
+            if status == 0 or status is None:
+                 cursor.execute("INSERT INTO guild_settings (guild_id) values (%s)", [interaction.guild.id])
+            cursor.execute("UPDATE guild_settings SET leveling_enabled = 0 WHERE guild_id = %s;", [interaction.guild.id])
+            await interaction.response.send_message(":white_check_mark: Leveling is disabled on this server!")
+     else:
+           await interaction.response.send_message(":x: Database usage is currently disabled.")
           
           
      
