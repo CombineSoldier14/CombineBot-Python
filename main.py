@@ -299,10 +299,12 @@ async def disableleveling(interaction, leveling: discord.Option(bool, choices=[T
             status = cursor.fetchone()
             if status == 0 or status is None:
                  cursor.execute("INSERT INTO guild_settings (guild_id) values (%s)", [interaction.guild.id])
+                 cnx.commit()
                  await interaction.response.send_message("Leveling is already enabled!")
                  return
             else:
                  cursor.execute("UPDATE guild_settings SET leveling_enabled = 1 WHERE guild_id = %s;", [interaction.guild.id])
+                 cnx.commit()
                  await interaction.response.send_message(":white_check_mark: Leveling is enabled on this server!")
          if leveling == False:
             cursor.execute("SELECT COUNT(*) FROM guild_settings WHERE guild_id = %s", [interaction.guild.id])
@@ -310,6 +312,7 @@ async def disableleveling(interaction, leveling: discord.Option(bool, choices=[T
             if status == 0 or status is None:
                  cursor.execute("INSERT INTO guild_settings (guild_id) values (%s)", [interaction.guild.id])
             cursor.execute("UPDATE guild_settings SET leveling_enabled = 0 WHERE guild_id = %s;", [interaction.guild.id])
+            cnx.commit()
             await interaction.response.send_message(":white_check_mark: Leveling is disabled on this server!")
      else:
            await interaction.response.send_message(":x: Database usage is currently disabled.")
