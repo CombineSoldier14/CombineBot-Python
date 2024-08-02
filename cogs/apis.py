@@ -421,7 +421,7 @@ class Apis(commands.Cog):
           char_limit = 1024
           j = cogs.combinebot.getUrban(term=term)
           if j["statusCode"] == 404:
-                await interaction.response.send_message(":x: Term **\"{}\"** not found!".format(term))
+                await interaction.send(":x: Term **\"{}\"** not found!".format(term))
                 return
           j = j["data"][0]
           meaning = j["meaning"]
