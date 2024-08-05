@@ -240,7 +240,7 @@ async def ping(interaction):
 
 @bot.slash_command(name="helloworld", description="If your program can't say this, don't talk to me")
 async def helloworld(interaction):
-    await interaction.response.send_message("Hello world!")
+    await interaction.response.send_message(":earth_americas: Hello world!")
 
 
 @bot.slash_command(name="checklevel", description="Get your current level!")
