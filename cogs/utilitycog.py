@@ -162,6 +162,12 @@ class Utilitycog(commands.Cog):
     @group.command(name="unixtime", description="Get the current UNIX timestamp!")
     async def unixtime(self, interaction):
          await interaction.response.send_message("`{}`".format(str(time.time())))
+
+    @group.command(name="roleid", description="Get the ID of a role!")
+    async def roleid(self, interaction, 
+                     role: discord.Option(discord.Role, description="Role to get ID of")):
+        await interaction.response.send_message("The role **{0}** has an ID of **{1}**".format(role.name, str(role.id)))
+    
          
       
 
@@ -176,4 +182,3 @@ class Utilitycog(commands.Cog):
 
 def setup(bot): # this is called by Pycord to setup the cog
     bot.add_cog(Utilitycog(bot)) # add the cog to the bot
-
