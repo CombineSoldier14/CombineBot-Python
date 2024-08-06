@@ -127,6 +127,16 @@ class Moderation(commands.Cog):
     @group.command(name="channelid", description="Get the ID of the channel you're currently in!")
     async def channelid(self, interaction, channel: discord.Option(discord.TextChannel, description="Channel to get ID of.")):
        await interaction.response.send_message("That channel's ID is **{}**".format(str(channel.id)))
+    
+    @group.command(name="createinvite", description="Create an invite for the server you're in!")
+    @commands.has_permissions(create_instant_invite=True)
+    async def createinvite(self, interaction, 
+                           age: discord.Option(int, description="How long the invite should last in seconds. Enter 0 for infinite."),
+                           max_uses: discord.Option(int, description="Max amount of times the invite can be used. Enter 0 for infinite."),
+                           channel: discord.Option(discord.TextChannel, description="Channel the invite should be to.")):
+       invite = await channel.create_invite(max_age=age, max_uses=max_uses)
+       await interaction.response.send_message(invite)
+
 
     @group.command(name="poll", description="Creates a votable poll!")
     async def poll(self, ctx,
