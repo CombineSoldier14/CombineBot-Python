@@ -12,7 +12,7 @@
 </p>
 
 ## What is it?
-CombineBot is a full open source discord bot made by me. It has plenty of slash commands for moderation and fun, made because again, robots are cool.
+CombineBot is a full open source discord bot made by me. It has 80+ slash commands for moderation and fun, perfect for any server.
 
 ## Features!
 * MBTI Test command
