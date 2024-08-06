@@ -329,11 +329,6 @@ async def _say(interaction, message: discord.Option(str, description="Message fo
 async def ephemeral(interaction, text):
     await interaction.response.send_message(text, ephemeral="true")
     
-@bot.slash_command(name="spoiler", description="Marks your text as a spoiler!")
-async def _spoiler(interaction, text):
-    
-    await interaction.response.send_message("||" + text + "||")
-    
 
 @bot.slash_command(name="invite", description="Get the invite link for CombineBot!")
 async def invite(interaction):
