@@ -167,18 +167,18 @@ class Utilitycog(commands.Cog):
     async def roleid(self, interaction, 
                      role: discord.Option(discord.Role, description="Role to get ID of")):
         await interaction.response.send_message("The role **{0}** has an ID of **{1}**".format(role.name, str(role.id)))
+
+    @group.command(name="welcomescreen", description="Get the welcome screen of the server you're in!")
+    async def welcomescreen(self, interaction):
+        guild = interaction.guild
+        if "COMMUNITY" not in guild.features:
+            await interaction.response.send_message(":x: This server does not have a welcome screen.")
+            return
+        else:
+            welcomesc = await guild.welcome_screen()
+            await interaction.response.send_message(welcomesc)
     
          
       
-
-
-
-
-
-
-
-
-
-
 def setup(bot): # this is called by Pycord to setup the cog
     bot.add_cog(Utilitycog(bot)) # add the cog to the bot
