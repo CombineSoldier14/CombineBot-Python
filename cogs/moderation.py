@@ -92,18 +92,15 @@ class Moderation(commands.Cog):
     @group.command(name="createchannel", description="Creates a basic text channel")
     @commands.has_permissions(manage_channels=True)
     async def createchannel(self, interaction, 
-                            name: discord.Option(str, description="Name of channel")):
+                            name: discord.Option(str, description="Name of channel"),
+                            type: discord.Option(str, description="Type of channel", choices=["text", "voice"])):
         guild = interaction.guild
-        await guild.create_text_channel('{0}'.format(name))
+        if type == "text":
+           await guild.create_text_channel('{0}'.format(name))
+        else:
+           await guild.create_voice_channel('{0}'.format(name))
         await interaction.response.send_message("The channel **#{0}** has been created!".format(name))
 
-    @group.command(name="createvoicechannel", description="Creates a basic voice channel")
-    @commands.has_permissions(manage_channels=True)
-    async def createchannel(self, interaction, 
-                            name: discord.Option(str, description="Name of channel")):
-        guild = interaction.guild
-        await guild.create_voice_channel('{0}'.format(name))
-        await interaction.response.send_message("The channel **#{0}** has been created!".format(name))
 
     @group.command(name="deletechannel", description="Deletes a channel in the server.")
     @commands.has_permissions(manage_channels=True)
