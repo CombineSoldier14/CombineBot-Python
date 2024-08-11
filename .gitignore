@@ -4,6 +4,7 @@ dev.json
 sql-creds.json
 use_db.json
 webhooks.json
+use_whs.json
 # ----- END CUSTOM RULES -----
 
 # Byte-compiled / optimized / DLL files
