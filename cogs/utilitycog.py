@@ -115,7 +115,8 @@ class Utilitycog(commands.Cog):
         await interaction.response.send_message(embed=embed)
 
     @group.command(name="serverinfo", description="Provides detailed information on the given server.")
-    async def serverinfo(self, interaction, server: discord.Option(discord.Guild, description="Name of the server to get info on. Case sensitive!")):
+    async def serverinfo(self, interaction,):
+        server = interaction.guild
         embed = cogs.combinebot.makeEmbed(
             title="Info on {0}".format(server),
             description="""
