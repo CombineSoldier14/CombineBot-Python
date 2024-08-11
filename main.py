@@ -39,6 +39,10 @@ with open("dev.json", "r") as f:
             _r = json.load(f)
             dev_status = _r["DEV_STATUS"]
 
+with open("use_whs.json", "r") as f:
+            _r = json.load(f)
+            use_webhooks = _r["use_webhooks"]
+
 with open("latestaddition.json", "r") as f:
             _r = json.load(f)
             LATESTADDITION = _r["LATEST_ADDITION"]
@@ -157,13 +161,17 @@ class ProblemView(discord.ui.View):
 
    @discord.ui.button(label="Report Error to CombineSoldier14", style=discord.ButtonStyle.primary)
    async def errorbutton(self, Button: discord.ui.Button, interaction: discord.Interaction):
-        Button.disabled = True
-        Button.label = "Error Reported!"
-        await interaction.response.edit_message(view=self)
-        webhook = webhooks["error_reports"]
-        requests.post(webhook, {
-            "content": "<@951639877768863754> {}".format("# Error Occurred!:\n`{0}`\nError: `{1}`".format(''.join(traceback.format_tb(self._error.__traceback__)), repr(self._error)))
-        })
+        if use_webhooks == 1:
+           Button.disabled = True
+           Button.label = "Error Reported!"
+           await interaction.response.edit_message(view=self)
+           webhook = webhooks["error_reports"]
+           requests.post(webhook, {
+               "content": "<@951639877768863754> {}".format("# Error Occurred!:\n`{0}`\nError: `{1}`".format(''.join(traceback.format_tb(self._error.__traceback__)), repr(self._error)))
+           })
+        else:
+              await interaction.response.send_message(":x: Webhook usage is currently disabled.")
+              return
 
 
 
@@ -218,11 +226,14 @@ class FeedbackModal(discord.ui.Modal):
           self.add_item(discord.ui.InputText(label="Feedback", style=discord.InputTextStyle.long))
 
      async def callback(self, interaction: discord.Interaction):
-           await interaction.response.send_message("Your feedback has been submitted to the bot's owner, **CombineSoldier14**!", ephemeral=True)
-           webhook = webhooks["feedback"]
-           requests.post(webhook, {
-            "content": "<@951639877768863754> Feedback submitted from {0} (`{1}`): *{2}*".format(interaction.user, interaction.user.id, self.children[0].value)
-           })
+           if use_webhooks == 1:
+              await interaction.response.send_message("Your feedback has been submitted to the bot's owner, **CombineSoldier14**!", ephemeral=True)
+              webhook = webhooks["feedback"]
+              requests.post(webhook, {
+               "content": "<@951639877768863754> Feedback submitted from {0} (`{1}`): *{2}*".format(interaction.user, interaction.user.id, self.children[0].value)
+              })
+           else:
+              await interaction.response.send_message(":x: Webhook usage is currently disabled.")
 
 
     
