@@ -495,3 +495,39 @@ levels = [
     {"level": 99, "commands_required": 990},
     {"level": 100, "commands_required": 1000}
   ]
+
+rpswins = [
+    
+        {
+            "botchoice": "rock",
+            "userchoice":"paper",
+            "final":"You WIN!"
+        },
+        {
+            "botchoice": "rock",
+            "userchoice":"scissors",
+            "final":"You LOST!"
+        },
+        {
+            "botchoice": "paper",
+            "userchoice":"rock",
+            "final":"You LOST!"
+        },
+        {
+            "botchoice": "paper",
+            "userchoice":"scissors",
+            "final":"You WIN!"
+        },
+        {
+            "botchoice": "scissors",
+            "userchoice":"rock",
+            "final":"You WIN!"
+        },
+        {
+            "botchoice": "scissors",
+            "userchoice":"paper",
+            "final":"You LOST!"
+        }
+
+    
+]
