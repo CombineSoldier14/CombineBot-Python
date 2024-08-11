@@ -43,6 +43,9 @@ with open("latestaddition.json", "r") as f:
             _r = json.load(f)
             LATESTADDITION = _r["LATEST_ADDITION"]
 
+with open("webhooks.json", "r") as f:
+            webhooks = json.load(f)
+
 with open("sql-creds.json", "r") as f:
             creds = json.load(f)
 if use_database == True:
@@ -157,7 +160,7 @@ class ProblemView(discord.ui.View):
         Button.disabled = True
         Button.label = "Error Reported!"
         await interaction.response.edit_message(view=self)
-        webhook = "https://discord.com/api/webhooks/1259298998301495379/R6zd6M4D2SQ_l2DfL-3vaEEBNBtU4XuZODbrWHnq0IR0Xj4IZcgvpvS2XrHMpr1YqHXD"
+        webhook = webhooks["error_reports"]
         requests.post(webhook, {
             "content": "<@951639877768863754> {}".format("# Error Occurred!:\n`{0}`\nError: `{1}`".format(''.join(traceback.format_tb(self._error.__traceback__)), repr(self._error)))
         })
@@ -216,7 +219,7 @@ class FeedbackModal(discord.ui.Modal):
 
      async def callback(self, interaction: discord.Interaction):
            await interaction.response.send_message("Your feedback has been submitted to the bot's owner, **CombineSoldier14**!", ephemeral=True)
-           webhook = "https://discord.com/api/webhooks/1267920503218372658/ofmUN-GZl4oEOzeW1Rv-Cl9p0HLOC2cZjK1lZCSKhG-NYeKKO8NfdDmYHdeo4PVJcqLv"
+           webhook = webhooks["feedback"]
            requests.post(webhook, {
             "content": "<@951639877768863754> Feedback submitted from {0} (`{1}`): *{2}*".format(interaction.user, interaction.user.id, self.children[0].value)
            })
