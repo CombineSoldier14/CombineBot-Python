@@ -1,4 +1,4 @@
-import discord
+mport discord
 from discord.ext import commands
 import os
 from discord import reaction
@@ -14,6 +14,7 @@ from cogs.lists import aaquotes
 from cogs.lists import suntzuquotes
 from cogs.lists import ytvalues
 from cogs.lists import difficulty
+from cogs.lists import rpswins
 import requests
 import time
 import json
@@ -347,3 +348,8 @@ def getUrban(term):
 
 def getQRCode(url):
         return "https://www.qrtag.net/api/qr_1024.png?url={}".format(url)
+
+def rpswin(userchoice, botchoice):
+        for x in rpswins:
+                if userchoice == x["userchoice"] and botchoice == x["botchoice"]:
+                        return x["final"]
