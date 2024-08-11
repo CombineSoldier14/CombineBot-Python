@@ -23,33 +23,11 @@ class Rps(commands.Cog):
     async def rps(self, interaction, choice: discord.Option(str, description="Your choice! Choose either rock, paper, or scissors.", choices=["rock", "paper", "scissors"])):
         user_choice = choice.lower()
         bot_choice = random.choice(WORDS)
-        def win_status():
-         
-        
-         if bot_choice == "rock" and user_choice == "paper":
-            return "You WON!"
-
-         if bot_choice == "rock" and user_choice == "scissors":
-            return "You LOST!"
-
-         if bot_choice == "paper" and user_choice == "rock":
-            return "You LOST!"
-
-         
-
-         if bot_choice == "paper" and user_choice == "scissors":
-            return "You WON!"
-
-         if bot_choice == "scissors" and user_choice == "rock":
-            return "You WON!"
-
-         if bot_choice == "scissors" and user_choice == "paper":
-            return "You LOST!"
-
-         else:
-            return "It's a TIE!"
-
-        embed = cogs.combinebot.makeEmbed(title=str(win_status()), 
+        if user_choice == bot_choice:
+            final = "It's a TIE!"
+        else:
+            final = cogs.combinebot.rpswin(userchoice=user_choice, botchoice=bot_choice)
+        embed = cogs.combinebot.makeEmbed(title=final, 
                                           description="You chose " + str(user_choice) + "\n CombineBot chose " + str(bot_choice),
                                           color=discord.Colour.red(),)
 
@@ -64,4 +42,3 @@ class Rps(commands.Cog):
 
 def setup(bot): # this is called by Pycord to setup the cog
     bot.add_cog(Rps(bot)) # add the cog to the bot
-
