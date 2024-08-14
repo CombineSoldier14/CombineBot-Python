@@ -25,10 +25,6 @@ statuses = [
     {
         "type":"PLAYING",
         "status":"Ace Attorney: Dual Destinies",
-    },
-    {
-        "type":"PLAYING",
-        "status":"Ace Attorney: Dual Destinies",
     }
 
 ]
