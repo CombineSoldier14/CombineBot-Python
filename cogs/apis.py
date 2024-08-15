@@ -344,7 +344,7 @@ class Apis(commands.Cog):
                      triviacategory: discord.Option(str, description="Category for trivia questions", choices=category),
                      triviadifficulty: discord.Option(str, description="The difficulty of the questions", choices=difficulty)):
 
-          
+          await interaction.defer()
           response = cogs.combinebot.getTrivia(category=triviacategory, difficulty=triviadifficulty)
           response = response["results"][0]
           titlequestion = cogs.combinebot.remove_html_entities(text=response["question"])
