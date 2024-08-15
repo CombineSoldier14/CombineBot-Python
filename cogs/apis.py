@@ -400,7 +400,7 @@ class Apis(commands.Cog):
                 elif label4 == response["correct_answer"]:
                       await interaction.followup.send(":white_check_mark: Correct answer!")  
           embed=cogs.combinebot.makeEmbed(description=titlequestion, color=discord.Color.blurple())
-          await interaction.response.send_message(embed=embed, view=QuestionView())
+          await interaction.followup.send(embed=embed, view=QuestionView())
 
     @group.command(name="cattext", description="Put text on a random image of a cat!")
     async def cattext(self, interaction, 
