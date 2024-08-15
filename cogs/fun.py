@@ -32,9 +32,10 @@ class Fun(commands.Cog):
 
  
     @group.command(name="cowsay", description="The cowsay command from Linux!")
-    async def cowsay(self, interaction, text=discord.Option(str, description="Text for cow to say", required=True), 
-                     character=discord.Option(str, description="Character for cowsay to use."), 
-                     choices=cowsay.char_names, default="cow"):
+    async def cowsay(self, interaction, 
+                     text=discord.Option(str, description="Text for cow to say", required=True), 
+                     character=discord.Option(str, description="Character for cowsay to use.", choices=cowsay.char_names, default="cow"), 
+                     ):
         await interaction.response.send_message("```\n{0}\n```".format(cowsay.get_output_string(character, text))),
     
     @group.command(name="randomword", description="Gives you a random English word!")
