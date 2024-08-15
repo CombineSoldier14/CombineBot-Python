@@ -7,7 +7,7 @@ def getVersion() -> str:
         return json.load(f)["VERSION"]
 
 HEADERS = {
-    "User-Agent": "CombineBot/{version} (https://github.com/CombineSoldier14/CombineBot +littlelatta@outlook.com); python-requests/{requests}; curl/8.4.0".format(
+    "User-Agent": "CombineBot/{version} (https://github.com/CombineSoldier14/CombineBot +combineemails14@gmail.com); python-requests/{requests}; curl/8.4.0".format(
         version=getVersion(),
         requests=requests.__version__
     ),
