@@ -263,7 +263,7 @@ async def checklevel(interaction, user: discord.Option(discord.Member, descripti
        cursor.execute("SELECT COUNT(*) FROM levels WHERE id = %s", [user.id])
        status = cursor.fetchone()[0]
        if status is None or status == 0:
-              level = 1
+              level = 0
               embed = cogs.combinebot.makeEmbed(
                  title="{}'s Level".format(user.name),
                  description="Their level is **{}**.\nYou can level up by running CombineBot commands!".format(str(level)),
