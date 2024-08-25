@@ -135,7 +135,7 @@ async def on_application_command(ctx: discord.context.ApplicationContext):
                           cnx.commit()
                           await ctx.channel.send("<@{0}> you have leveled up to {1}!".format(ctx.author.id, newlevel[0])) 
      else:
-                 return
+            return
   
      
      
