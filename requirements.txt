@@ -7,3 +7,4 @@ uuid
 feedparser
 pointercratepy
 mysql-connector-python
+python-dotenv
