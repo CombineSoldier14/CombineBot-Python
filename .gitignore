@@ -1,10 +1,5 @@
 # ----- CUSTOM RULES -----
-token.json
-dev.json
-sql-creds.json
-use_db.json
-webhooks.json
-use_whs.json
+.env
 # ----- END CUSTOM RULES -----
 
 # Byte-compiled / optimized / DLL files
