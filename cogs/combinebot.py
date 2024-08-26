@@ -27,34 +27,28 @@ import cogs.requestHandler as handler
 import re
 from cogs.lists import statuses
 import asyncio
+from dotenv import load_dotenv
+import dotenv
 
+dotenv.load_dotenv()
 
-with open("version.json", "r") as f:
-            _r = json.load(f)
-            VERSION = _r["VERSION"]
-
-
-with open("dev.json", "r") as f:
-            _r = json.load(f)
-            dev_status = _r["DEV_STATUS"]
-
-with open("latestaddition.json", "r") as f:
-            _r = json.load(f)
-            LATESTADDITION = _r["LATEST_ADDITION"]
-
-
-
+use_db = os.getenv("USE_DB")
+VERSION = os.getenv("VERSION")
+ERROR_WEBHOOK = os.getenv("ERROR_WEBHOOK")
+FEEDBACK_WEBHOOK = os.getenv("FEEDBACK_WEBHOOK")
+LATESTADDITION = os.getenv("LATEST_ADDITION")
+dev_status = os.getenv("DEVMODE")
 #The Dev status is meant for if CombineBot is running in DEV mode which changes some names and icons.
 
 
-if dev_status == "true":
+if dev_status == 1:
             name = "CombineBot Development Edition"
             game = "with unstable ass commands"
             icon = "https://cdn.discordapp.com/app-icons/1227477531461025854/85f59950e14cca56e4b1bcefd911ca23.png?size=256"
             prefix = "-"
 
 
-if dev_status == "false":
+else:
             name = "CombineBot"
             game = "https://combinebot.blogspot.com/"
             icon = "https://i.postimg.cc/wjgpb7bb/image-1.png"
