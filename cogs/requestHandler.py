@@ -1,10 +1,14 @@
 import json
 import requests
+import os
+import dotenv
+from dotenv import load_dotenv
+
+dotenv.load_dotenv()
 
 def getVersion() -> str:
     """Get the current bot version"""
-    with open("version.json") as f:
-        return json.load(f)["VERSION"]
+    return os.getenv("VERSION")
 
 HEADERS = {
     "User-Agent": "CombineBot/{version} (https://github.com/CombineSoldier14/CombineBot +combineemails14@gmail.com); python-requests/{requests}; curl/8.4.0".format(
