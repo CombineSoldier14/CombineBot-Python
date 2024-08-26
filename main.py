@@ -21,44 +21,37 @@ import requests
 import mysql.connector
 from datetime import date, datetime, timedelta
 from cogs.lists import levels
+from dotenv import load_dotenv
+import dotenv
 
+dotenv.load_dotenv()
 
-with open("version.json", "r") as f:
-            _r = json.load(f)
-            VERSION = _r["VERSION"]
+use_db = os.getenv("USE_DB")
+VERSION = os.getenv("VERSION")
+ERROR_WEBHOOK = os.getenv("ERROR_WEBHOOK")
+FEEDBACK_WEBHOOK = os.getenv("FEEDBACK_WEBHOOK")
+LATESTADDITION = os.getenv("LATEST_ADDITION")
+use_webhooks = os.getenv("USE_WEBHOOKS")
+SQLHOST = os.getenv("SQLHOST")
+SQLUSERNAME = os.getenv("SQLUSERNAME")
+SQLDB = os.getenv("SQLDB")
+SQLPW = os.getenv("SQLPASSWORD")
+dev_status = os.getenv("DEVMODE")
 
-with open("use_db.json", "r") as f:
-            _r = json.load(f)
-            use_db = _r["use_db"]
+print(use_db)
+
 if use_db == 0:
         use_database = False
 else:
         use_database = True
 
-with open("dev.json", "r") as f:
-            _r = json.load(f)
-            dev_status = _r["DEV_STATUS"]
-
-with open("use_whs.json", "r") as f:
-            _r = json.load(f)
-            use_webhooks = _r["use_webhooks"]
-
-with open("latestaddition.json", "r") as f:
-            _r = json.load(f)
-            LATESTADDITION = _r["LATEST_ADDITION"]
-
-with open("webhooks.json", "r") as f:
-            webhooks = json.load(f)
-
-with open("sql-creds.json", "r") as f:
-            creds = json.load(f)
-if use_database == True:
-             cnx = mysql.connector.connect(user=creds["username"], password=creds["password"], host=creds["host"], database=creds["database"])
-             cursor = cnx.cursor()
+if use_db == 0:
+    cnx = mysql.connector.connect(user=SQLUSERNAME, password=SQLPW, host=SQLHOST, database=SQLDB)
+    cursor = cnx.cursor()
 #The Dev status is meant for if CombineBot is running in DEV mode which changes some names and icons.
 
 
-if dev_status == "true":
+if dev_status == 1:
             name = "CombineBot Development Edition"
             game = "with unstable ass commands"
             icon = "https://cdn.discordapp.com/app-icons/1227477531461025854/85f59950e14cca56e4b1bcefd911ca23.png?size=256"
@@ -66,7 +59,7 @@ if dev_status == "true":
             link = "https://discord.com/oauth2/authorize?client_id=1227477531461025854"
 
 
-if dev_status == "false":
+else:
             name = "CombineBot"
             game = "https://combinebot.blogspot.com/"
             icon = "https://i.postimg.cc/wjgpb7bb/image-1.png"
@@ -114,7 +107,7 @@ async def rotateStatus():
 
 @bot.listen("on_application_command")
 async def on_application_command(ctx: discord.context.ApplicationContext):
-     if use_database == True:
+     if use_db == 1:
            cursor.execute("SELECT leveling_enabled FROM guild_settings WHERE guild_id = %s", [ctx.guild.id])
            levelingenable = cursor.fetchone()
            if levelingenable == 0:
@@ -165,7 +158,7 @@ class ProblemView(discord.ui.View):
            Button.disabled = True
            Button.label = "Error Reported!"
            await interaction.response.edit_message(view=self)
-           webhook = webhooks["error_reports"]
+           webhook = ERROR_WEBHOOK
            requests.post(webhook, {
                "content": "<@951639877768863754> {}".format("# Error Occurred!:\n`{0}`\nError: `{1}`".format(''.join(traceback.format_tb(self._error.__traceback__)), repr(self._error)))
            })
@@ -228,7 +221,7 @@ class FeedbackModal(discord.ui.Modal):
      async def callback(self, interaction: discord.Interaction):
            if use_webhooks == 1:
               await interaction.response.send_message("Your feedback has been submitted to the bot's owner, **CombineSoldier14**!", ephemeral=True)
-              webhook = webhooks["feedback"]
+              webhook = FEEDBACK_WEBHOOK
               requests.post(webhook, {
                "content": "<@951639877768863754> Feedback submitted from {0} (`{1}`): *{2}*".format(interaction.user, interaction.user.id, self.children[0].value)
               })
@@ -259,7 +252,7 @@ async def helloworld(interaction):
 
 @bot.slash_command(name="checklevel", description="Get your current level!")
 async def checklevel(interaction, user: discord.Option(discord.Member, description="User to get level of")):
-     if use_database == True:
+     if use_db == 1:
        cursor.execute("SELECT COUNT(*) FROM levels WHERE id = %s", [user.id])
        status = cursor.fetchone()[0]
        if status is None or status == 0:
@@ -306,7 +299,7 @@ async def about(interaction):
 @bot.slash_command(name="toggleleveling", description="A command for server owners to toggle leveling on/off.")
 @commands.has_permissions(administrator=True)
 async def disableleveling(interaction, leveling: discord.Option(bool, choices=[True, False])):
-     if use_database == True:
+     if use_db == 1:
          cursor = cnx.cursor()
          if leveling == True:
             cursor.execute("SELECT COUNT(*) FROM guild_settings WHERE guild_id = %s", [interaction.guild.id])
