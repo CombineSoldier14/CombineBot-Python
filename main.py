@@ -97,6 +97,8 @@ bot.load_extension('cogs.standbattle')
 
 @tasks.loop(seconds=30)
 async def rotateStatus():
+    if use_db != 0:
+       cnx.ping(reconnect=True)
     print("rotateStatus has been started.")
     await cogs.combinebot.changeStatus(bot)
 
