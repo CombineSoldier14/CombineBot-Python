@@ -37,15 +37,16 @@ SQLUSERNAME = os.getenv("SQLUSERNAME")
 SQLDB = os.getenv("SQLDB")
 SQLPW = os.getenv("SQLPASSWORD")
 dev_status = os.getenv("DEVMODE")
-print("usedb is {}".format(str(use_db)))
+print("usedb is {}".format(str(use_db)))
 
-if use_db == 1:
+
+if use_db == 1 or True:
     cnx = mysql.connector.connect(user=SQLUSERNAME, password=SQLPW, host=SQLHOST, database=SQLDB)
     cursor = cnx.cursor()
 #The Dev status is meant for if CombineBot is running in DEV mode which changes some names and icons.
 
 
-if dev_status == 1:
+if dev_status == 1 or True:
             name = "CombineBot Development Edition"
             game = "with unstable ass commands"
             icon = "https://cdn.discordapp.com/app-icons/1227477531461025854/85f59950e14cca56e4b1bcefd911ca23.png?size=256"
@@ -101,7 +102,7 @@ async def rotateStatus():
 
 @bot.listen("on_application_command")
 async def on_application_command(ctx: discord.context.ApplicationContext):
-     if use_db == 1:
+     if use_db == 1 or True:
            cursor.execute("SELECT leveling_enabled FROM guild_settings WHERE guild_id = %s", [ctx.guild.id])
            levelingenable = cursor.fetchone()
            if levelingenable == 0:
@@ -148,7 +149,7 @@ class ProblemView(discord.ui.View):
 
    @discord.ui.button(label="Report Error to CombineSoldier14", style=discord.ButtonStyle.primary)
    async def errorbutton(self, Button: discord.ui.Button, interaction: discord.Interaction):
-        if use_webhooks == 1:
+        if use_webhooks == 1 or True:
            Button.disabled = True
            Button.label = "Error Reported!"
            await interaction.response.edit_message(view=self)
@@ -213,7 +214,7 @@ class FeedbackModal(discord.ui.Modal):
           self.add_item(discord.ui.InputText(label="Feedback", style=discord.InputTextStyle.long))
 
      async def callback(self, interaction: discord.Interaction):
-           if use_webhooks == 1:
+           if use_webhooks == 1 or True:
               await interaction.response.send_message("Your feedback has been submitted to the bot's owner, **CombineSoldier14**!", ephemeral=True)
               webhook = FEEDBACK_WEBHOOK
               requests.post(webhook, {
@@ -246,7 +247,7 @@ async def helloworld(interaction):
 
 @bot.slash_command(name="checklevel", description="Get your current level!")
 async def checklevel(interaction, user: discord.Option(discord.Member, description="User to get level of")):
-     if use_db == 1:
+     if use_db == 1 or True:
        cursor.execute("SELECT COUNT(*) FROM levels WHERE id = %s", [user.id])
        status = cursor.fetchone()[0]
        if status is None or status == 0:
@@ -293,7 +294,7 @@ async def about(interaction):
 @bot.slash_command(name="toggleleveling", description="A command for server owners to toggle leveling on/off.")
 @commands.has_permissions(administrator=True)
 async def disableleveling(interaction, leveling: discord.Option(bool, choices=[True, False])):
-     if use_db == 1:
+     if use_db == 1 or True:
          cursor = cnx.cursor()
          if leveling == True:
             cursor.execute("SELECT COUNT(*) FROM guild_settings WHERE guild_id = %s", [interaction.guild.id])
