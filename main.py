@@ -37,6 +37,7 @@ SQLUSERNAME = os.getenv("SQLUSERNAME")
 SQLDB = os.getenv("SQLDB")
 SQLPW = os.getenv("SQLPASSWORD")
 dev_status = os.getenv("DEVMODE")
+print("usedb is {}".format(str(use_db)))
 
 print(use_db)
 
