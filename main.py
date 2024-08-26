@@ -37,16 +37,9 @@ SQLUSERNAME = os.getenv("SQLUSERNAME")
 SQLDB = os.getenv("SQLDB")
 SQLPW = os.getenv("SQLPASSWORD")
 dev_status = os.getenv("DEVMODE")
-print("usedb is {}".format(str(use_db)))
+print("usedb is {}".format(str(use_db)))
 
-print(use_db)
-
-if use_db == 0:
-        use_database = False
-else:
-        use_database = True
-
-if use_db == 0:
+if use_db == 1:
     cnx = mysql.connector.connect(user=SQLUSERNAME, password=SQLPW, host=SQLHOST, database=SQLDB)
     cursor = cnx.cursor()
 #The Dev status is meant for if CombineBot is running in DEV mode which changes some names and icons.
