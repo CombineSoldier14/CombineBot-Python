@@ -44,7 +44,7 @@ dev_status = os.getenv("DEVMODE")
 
 if use_db != 0:
     creds = mysql.connector.connect(user=SQLUSERNAME, password=SQLPW, host=SQLHOST, database=SQLDB)
-    m = mysqlcnx(cnx=creds, canUseDatabase=use_db)
+    m = cogs.combinebot.mysqlcnx(cnx=creds, canUseDatabase=use_db)
     cnx = m.self.cnx
     cursor = m.self.cursor
 
