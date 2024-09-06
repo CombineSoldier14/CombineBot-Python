@@ -102,6 +102,31 @@ async def rotateStatus():
     print("rotateStatus has been started.")
     await cogs.combinebot.changeStatus(bot)
 
+@bot.listen("on_message")
+async def on_message(message: discord.Message):
+      if use_db != 0 or True:
+           cursor.execute("SELECT leveling_enabled FROM guild_settings WHERE guild_id = %s", [message.guild.id])
+           levelingenable = cursor.fetchone()
+           if levelingenable == 0:
+                return
+           cursor.execute("SELECT COUNT(*) FROM levels WHERE id = %s", [message.author.id])
+           r = cursor.fetchone()
+           if r == None:
+                cursor.execute("INSERT INTO levels (id) values (%s)", [message.author.id])
+           else:
+                cursor.execute("UPDATE levels SET commands_ran = commands_ran + 1 WHERE id = %s;", [message.author.id])
+                cursor.execute("SELECT commands_ran FROM levels WHERE id = %s", [message.author.id])
+                n = cursor.fetchone()
+                for x in reversed(levels):
+                     if n[0] == x["commands_required"]:
+                          cursor.execute("UPDATE levels SET level = level + 1 WHERE id = %s;", [message.author.id])
+                          cursor.execute("SELECT level FROM levels WHERE id = %s", [message.author.id])
+                          newlevel = cursor.fetchone()
+                          cnx.commit()
+                          await message.channel.send("<@{0}> you have leveled up to {1}!".format(message.author.id, newlevel[0])) 
+      else:
+            return
+
 @bot.listen("on_application_command")
 async def on_application_command(ctx: discord.context.ApplicationContext):
      if use_db != 0 or True:
