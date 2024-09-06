@@ -118,17 +118,17 @@ async def on_message(message: discord.Message):
            r = cursor.fetchone()
            if r == None:
                 cursor.execute("INSERT INTO levels (id) values (%s)", [message.author.id])
-           else:
-                cursor.execute("UPDATE levels SET messages_sent = message_sent + 1 WHERE id = %s;", [message.author.id])
-                cursor.execute("SELECT messages_sent FROM levels WHERE id = %s", [message.author.id])
-                n = cursor.fetchone()
-                for x in reversed(levels):
-                     if n[0] == x["commands_required"]:
-                          cursor.execute("UPDATE levels SET level = level + 1 WHERE id = %s;", [message.author.id])
-                          cursor.execute("SELECT level FROM levels WHERE id = %s", [message.author.id])
-                          newlevel = cursor.fetchone()
-                          cnx.commit()
-                          await message.channel.send("<@{0}> you have leveled up to {1}!".format(message.author.id, newlevel[0])) 
+           
+           cursor.execute("UPDATE levels SET messages_sent = message_sent + 1 WHERE id = %s;", [message.author.id])
+           cursor.execute("SELECT messages_sent FROM levels WHERE id = %s", [message.author.id])
+           n = cursor.fetchone()
+           for x in reversed(levels):
+                if n[0] == x["commands_required"]:
+                    cursor.execute("UPDATE levels SET level = level + 1 WHERE id = %s;", [message.author.id])
+                    cursor.execute("SELECT level FROM levels WHERE id = %s", [message.author.id])
+                    newlevel = cursor.fetchone()
+                    cnx.commit()
+                    await message.channel.send("<@{0}> you have leveled up to {1}!".format(message.author.id, newlevel[0])) 
       else:
             return
 
@@ -143,12 +143,11 @@ async def on_application_command(ctx: discord.context.ApplicationContext):
            r = cursor.fetchone()
            if r == None:
                 cursor.execute("INSERT INTO levels (id) values (%s)", [ctx.author.id])
-           else:
-                cursor.execute("UPDATE levels SET commands_ran = commands_ran + 1 WHERE id = %s;", [ctx.author.id])
-                cursor.execute("SELECT commands_ran FROM levels WHERE id = %s", [ctx.author.id])
-                n = cursor.fetchone()
-                for x in reversed(levels):
-                     if n[0] == x["commands_required"]:
+           cursor.execute("UPDATE levels SET commands_ran = commands_ran + 1 WHERE id = %s;", [ctx.author.id])
+           cursor.execute("SELECT commands_ran FROM levels WHERE id = %s", [ctx.author.id])
+           n = cursor.fetchone()
+           for x in reversed(levels):
+                if n[0] == x["commands_required"]:
                           cursor.execute("UPDATE levels SET level = level + 1 WHERE id = %s;", [ctx.author.id])
                           cursor.execute("SELECT level FROM levels WHERE id = %s", [ctx.author.id])
                           newlevel = cursor.fetchone()
