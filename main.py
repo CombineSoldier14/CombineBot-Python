@@ -285,7 +285,7 @@ async def checklevel(interaction, user: discord.Option(discord.Member, descripti
               level = 0
               embed = cogs.combinebot.makeEmbed(
                  title="{}'s Level".format(user.name),
-                 description="Their level is **{}**.\nYou can level up by running CombineBot commands!".format(str(level)),
+                 description="Their level is **{}**.\nYou can level up by running CombineBot commands, sending messages, and winning stand battles!".format(str(level)),
                  color=discord.Color.blurple()
               )   
               embed.set_thumbnail(url=user.display_avatar)
