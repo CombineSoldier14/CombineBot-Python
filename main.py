@@ -121,11 +121,13 @@ async def on_message(message: discord.Message):
                 cnx.commit()
            
            cursor.execute("UPDATE levels SET messages_sent = messages_sent + 1 WHERE id = %s;", [message.author.id])
+           cnx.commit()
            cursor.execute("SELECT messages_sent FROM levels WHERE id = %s", [message.author.id])
            n = cursor.fetchone()
            for x in reversed(levels):
                 if n[0] == x["commands_required"]:
                     cursor.execute("UPDATE levels SET level = level + 1 WHERE id = %s;", [message.author.id])
+                    cnx.commit()
                     cursor.execute("SELECT level FROM levels WHERE id = %s", [message.author.id])
                     newlevel = cursor.fetchone()
                     cnx.commit()
