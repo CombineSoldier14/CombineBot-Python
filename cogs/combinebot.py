@@ -29,6 +29,7 @@ from cogs.lists import statuses
 import asyncio
 from dotenv import load_dotenv
 import dotenv
+import mysql.connector
 
 dotenv.load_dotenv()
 
@@ -73,6 +74,15 @@ def makeEmbed(**kwargs):
         embed.set_footer(text="{0} v{1}".format(name, VERSION), icon_url=icon) 
         return embed
 
+class mysqlcnx():
+    def __init__(self, cnx: mysql.connector.connection.MySQLConnection, canUseDatabase: bool = False):
+        super().__init__()
+        self.cnx = cnx
+        self.canUseDatabase = canUseDatabase
+        if canUseDatabase:
+            self.cursor = cnx.cursor()
+        else:
+            self.cursor = None
 
 def getRandomString(length):
         if length > 100:
