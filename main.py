@@ -119,7 +119,7 @@ async def on_message(message: discord.Message):
            if r == None:
                 cursor.execute("INSERT INTO levels (id) values (%s)", [message.author.id])
            
-           cursor.execute("UPDATE levels SET messages_sent = message_sent + 1 WHERE id = %s;", [message.author.id])
+           cursor.execute("UPDATE levels SET messages_sent = messages_sent + 1 WHERE id = %s;", [message.author.id])
            cursor.execute("SELECT messages_sent FROM levels WHERE id = %s", [message.author.id])
            n = cursor.fetchone()
            for x in reversed(levels):
