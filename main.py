@@ -122,6 +122,7 @@ async def on_message(message: discord.Message):
            cursor.execute("UPDATE levels SET messages_sent = messages_sent + 1 WHERE id = %s;", [message.author.id])
            cursor.execute("SELECT messages_sent FROM levels WHERE id = %s", [message.author.id])
            n = cursor.fetchone()
+           print("n")
            for x in reversed(levels):
                 if n[0] == x["commands_required"]:
                     cursor.execute("UPDATE levels SET level = level + 1 WHERE id = %s;", [message.author.id])
