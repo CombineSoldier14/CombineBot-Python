@@ -19,8 +19,8 @@ SQLPW = os.getenv("SQLPASSWORD")
 if use_db != 0:
     creds = mysql.connector.connect(user=SQLUSERNAME, password=SQLPW, host=SQLHOST, database=SQLDB)
     m = mysqlcnx(cnx=creds, canUseDatabase=use_db)
-    cnx = m.self.cnx
-    cursor = m.self.cursor
+    cnx = m.cnx
+    cursor = m.cursor
 
 async def levelUp(id, cnx):
     cursor.execute("SELECT COUNT(*) FROM levels WHERE id = %s", [id])
