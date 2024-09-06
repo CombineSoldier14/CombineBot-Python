@@ -23,6 +23,7 @@ from datetime import date, datetime, timedelta
 from cogs.lists import levels
 from dotenv import load_dotenv
 import dotenv
+from cogs.combinebot import mysqlcnx
 
 dotenv.load_dotenv()
 
@@ -37,12 +38,16 @@ SQLUSERNAME = os.getenv("SQLUSERNAME")
 SQLDB = os.getenv("SQLDB")
 SQLPW = os.getenv("SQLPASSWORD")
 dev_status = os.getenv("DEVMODE")
-print("usedb is {}".format(str(use_db)))
+
+
 
 
 if use_db != 0:
-    cnx = mysql.connector.connect(user=SQLUSERNAME, password=SQLPW, host=SQLHOST, database=SQLDB)
-    cursor = cnx.cursor()
+    creds = mysql.connector.connect(user=SQLUSERNAME, password=SQLPW, host=SQLHOST, database=SQLDB)
+    m = mysqlcnx(cnx=creds, canUseDatabase=use_db)
+    cnx = m.self.cnx
+    cursor = m.self.cursor
+
 #The Dev status is meant for if CombineBot is running in DEV mode which changes some names and icons.
 
 
@@ -77,22 +82,22 @@ bot = commands.Bot(command_prefix=prefix, intents=intents)
 
 logging.basicConfig(level=logging.INFO)
 #loading cogs
-bot.load_extension('cogs.moderation')
-bot.load_extension('cogs.fun')
-bot.load_extension('cogs.apis')
-bot.load_extension('cogs.mbti')
-bot.load_extension('cogs.calculator')
-bot.load_extension('cogs.rps')
-bot.load_extension('cogs.utilitycog')
-bot.load_extension('cogs.role')
-bot.load_extension('cogs.mcstatus')
-bot.load_extension('cogs.suntzu')
-bot.load_extension('cogs.cogfunc')
-bot.load_extension('cogs.dnd')
-bot.load_extension('cogs.cogfunctest')
-bot.load_extension('cogs.enneagramtest')
-bot.load_extension('cogs.mbtitest')
-bot.load_extension('cogs.standbattle')
+bot.add_cog('cogs.moderation')
+bot.add_cog('cogs.fun')
+bot.add_cog('cogs.apis')
+bot.add_cog('cogs.mbti')
+bot.add_cog('cogs.calculator')
+bot.add_cog('cogs.rps')
+bot.add_cog('cogs.utilitycog')
+bot.add_cog('cogs.role')
+bot.add_cog('cogs.mcstatus')
+bot.add_cog('cogs.suntzu')
+bot.add_cog('cogs.cogfunc')
+bot.add_cog('cogs.dnd')
+bot.add_cog('cogs.cogfunctest')
+bot.add_cog('cogs.enneagramtest')
+bot.add_cog('cogs.mbtitest')
+bot.add_cog('cogs.standbattle')
 
 
 @tasks.loop(seconds=30)
@@ -104,7 +109,7 @@ async def rotateStatus():
 
 @bot.listen("on_message")
 async def on_message(message: discord.Message):
-      if use_db != 0 or True:
+      if use_db != 0:
            cursor.execute("SELECT leveling_enabled FROM guild_settings WHERE guild_id = %s", [message.guild.id])
            levelingenable = cursor.fetchone()
            if levelingenable == 0:
@@ -114,8 +119,8 @@ async def on_message(message: discord.Message):
            if r == None:
                 cursor.execute("INSERT INTO levels (id) values (%s)", [message.author.id])
            else:
-                cursor.execute("UPDATE levels SET commands_ran = commands_ran + 1 WHERE id = %s;", [message.author.id])
-                cursor.execute("SELECT commands_ran FROM levels WHERE id = %s", [message.author.id])
+                cursor.execute("UPDATE levels SET messages_sent = message_sent + 1 WHERE id = %s;", [message.author.id])
+                cursor.execute("SELECT messages_sent FROM levels WHERE id = %s", [message.author.id])
                 n = cursor.fetchone()
                 for x in reversed(levels):
                      if n[0] == x["commands_required"]:
@@ -129,7 +134,7 @@ async def on_message(message: discord.Message):
 
 @bot.listen("on_application_command")
 async def on_application_command(ctx: discord.context.ApplicationContext):
-     if use_db != 0 or True:
+     if use_db != 0:
            cursor.execute("SELECT leveling_enabled FROM guild_settings WHERE guild_id = %s", [ctx.guild.id])
            levelingenable = cursor.fetchone()
            if levelingenable == 0:
