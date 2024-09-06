@@ -44,9 +44,9 @@ dev_status = os.getenv("DEVMODE")
 
 if use_db != 0:
     creds = mysql.connector.connect(user=SQLUSERNAME, password=SQLPW, host=SQLHOST, database=SQLDB)
-    m = cogs.combinebot.mysqlcnx(cnx=creds, canUseDatabase=use_db)
-    cnx = m.self.cnx
-    cursor = m.self.cursor
+    m = mysqlcnx(cnx=creds, canUseDatabase=use_db)
+    cnx = m.cnx
+    cursor = m.cursor
 
 #The Dev status is meant for if CombineBot is running in DEV mode which changes some names and icons.
 
