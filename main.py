@@ -141,7 +141,7 @@ async def on_application_command(ctx: discord.context.ApplicationContext):
                 return
            cursor.execute("SELECT COUNT(*) FROM levels WHERE id = %s", [ctx.author.id])
            r = cursor.fetchone()
-           if r == None:
+           if r == None or 0 or []:
                 cursor.execute("INSERT INTO levels (id) values (%s)", [ctx.author.id])
            cursor.execute("UPDATE levels SET commands_ran = commands_ran + 1 WHERE id = %s;", [ctx.author.id])
            cursor.execute("SELECT commands_ran FROM levels WHERE id = %s", [ctx.author.id])
