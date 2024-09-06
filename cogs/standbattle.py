@@ -3,11 +3,43 @@ from discord.ext import commands
 import os
 import cogs.combinebot
 import random
+from dotenv import load_dotenv
+import dotenv
+import mysql.connector
+from cogs.combinebot import mysqlcnx
+
+dotenv.load_dotenv()
+
+use_db = os.getenv("USE_DB")
+SQLHOST = os.getenv("SQLHOST")
+SQLUSERNAME = os.getenv("SQLUSERNAME")
+SQLDB = os.getenv("SQLDB")
+SQLPW = os.getenv("SQLPASSWORD")
+
+if use_db != 0:
+    creds = mysql.connector.connect(user=SQLUSERNAME, password=SQLPW, host=SQLHOST, database=SQLDB)
+    m = mysqlcnx(cnx=creds, canUseDatabase=use_db)
+    cnx = m.self.cnx
+    cursor = m.self.cursor
+
+async def levelUp(id, cnx):
+    cursor.execute("SELECT COUNT(*) FROM levels WHERE id = %s", [id])
+    r = cursor.fetchone()
+    if r == None:
+        cursor.execute("INSERT INTO levels (id) values (%s)", [id])
+    cursor.execute("UPDATE levels SET battles_won = battles_won + 1 WHERE id = %s;", [id])
+    cursor.execute("UPDATE levels SET level = level + 1 WHERE id = %s;", [id])
+    cursor.execute("SELECT level FROM levels WHERE id = %s", [id])
+    newlevel = cursor.fetchone()
+    cnx.commit()
+    n = ("<@{0}> you have leveled up to {1}!".format(id, newlevel[0]))
+    return n
 
 async def finishBattle(winperson, winbot, loseperson, losebot):
     n = "As {0}'s {1} landed the final blow on {2}'s {3}, both {4} and {5} exploded brutally leaving {6} and {7} as our **WINNERS!**".format(
         winperson.name, winbot.name, loseperson.name, losebot.name, losebot.name, loseperson.name, winperson.name, winbot.name
     )
+
     return n
 
 
@@ -53,6 +85,8 @@ class AttackView(discord.ui.View):
             if self.unturnteamhp <= 0:
                 n = await finishBattle(winperson=self.turnperson, winbot=self.turnbot, loseperson=self.unturnperson, losebot=self.unturnbot)
                 await self.thread.send(n)
+                r = await levelUp(id=self.turnperson.id, cnx=cnx)
+                await self.thread.send(r)
                 return
             else:
                 await self.thread.send(self.damagetexts[0]["hittextsmall"])
@@ -77,6 +111,8 @@ class AttackView(discord.ui.View):
             if self.unturnteamhp <= 0:
                 n = await finishBattle(winperson=self.turnperson, winbot=self.turnbot, loseperson=self.unturnperson, losebot=self.unturnbot)
                 await self.thread.send(n)
+                r = await levelUp(id=self.turnperson.id, cnx=cnx)
+                await self.thread.send(r)
                 return
             else:
                 await self.thread.send(self.damagetexts[0]["hittextlarge"])
