@@ -7,7 +7,7 @@ from cogs.combinebot import game
 from cogs.combinebot import icon
 from cogs.combinebot import VERSION
 from cogs.combinebot import LATESTADDITION
-
+from cogs.combinebot import getSunTzu
 
 class SunTzu(commands.Cog):
     def __init__(self, bot):
@@ -19,7 +19,7 @@ class SunTzu(commands.Cog):
             await interaction.response.send_message("""> \"_{0}_\" 
                             - Sun Tzu, _The Art of War_
                               
-                              """.format(cogs.combinebot.getSunTzu()))
+                              """.format(getSunTzu()))
 
 
 def setup(bot): # this is called by Pycord to setup the cog
