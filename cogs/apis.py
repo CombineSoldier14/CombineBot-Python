@@ -37,7 +37,7 @@ class Apis(commands.Cog):
         await interaction.response.send_message(cogs.combinebot.getJoke())
     
     @group.command(name="xkcd", description="Get a random XKCD comic!")
-    async def xkcd(self, interaction, number: discord.Option(int, description="Number of XKCD comic to get. By default this is just random.", default=random.randint(1, 2940), required=False)):
+    async def xkcd(self, interaction, number: discord.Option(int, description="Number of XKCD comic to get. By default this is just random.", default=random.randint(1, 2940), required=False)): # type: ignore
         xkcdjson = cogs.combinebot.getXKCD(number=number)
             
         embed = cogs.combinebot.makeEmbed(
@@ -82,7 +82,7 @@ class Apis(commands.Cog):
         await interaction.response.send_message(embed=embed)
     
     @group.command(name="shakespeare", description="Translate english text to Shakespeare english!")
-    async def shakespeare(self, interaction, text: discord.Option(str, description="Text to translate", required=True)):
+    async def shakespeare(self, interaction, text: discord.Option(str, description="Text to translate", required=True)): # type: ignore
          jshake = cogs.combinebot.getShakespeare(text=text)
 
          embed = cogs.combinebot.makeEmbed(
@@ -147,7 +147,7 @@ class Apis(commands.Cog):
          await interaction.followup.send(embed=embed)
          
     @group.command(name="randomreddit", description="Get a random post from a subreddit!")
-    async def randomreddit(self, interaction, sub: discord.Option(str, description="Subreddit name to get the post from.")):
+    async def randomreddit(self, interaction, sub: discord.Option(str, description="Subreddit name to get the post from.")): # type: ignore
          jmeme = cogs.combinebot.getRandomReddit(subreddit=sub)
              
          if jmeme["nsfw"] == True and interaction.channel.nsfw == False:
@@ -172,13 +172,13 @@ class Apis(commands.Cog):
                await interaction.response.send_message(f":dog: `{randbreed}`")
 
     @group.command(name="urlshort", description="Shortens a given URL")
-    async def urlshort(self, interaction, url: discord.Option(str, description="URL to shorten. Must begin with http(s)://www.")):
+    async def urlshort(self, interaction, url: discord.Option(str, description="URL to shorten. Must begin with http(s)://www.")): # type: ignore
            await interaction.defer()
            
            await interaction.followup.send("Your Shortened URL: https://1pt.co/{0}".format(cogs.combinebot.shortenURL(url=url)))
 
     @group.command(name="weather", description="Get the weather for a city!")
-    async def weather(self, interaction, city: discord.Option(str, description="The city to get weather of")):
+    async def weather(self, interaction, city: discord.Option(str, description="The city to get weather of")): # type: ignore
         response = cogs.combinebot.getWeather(city=city)
         if response == ":x: City not found! Maybe you misspelt it?":
               interaction.response.send_message(response)
@@ -195,8 +195,8 @@ class Apis(commands.Cog):
            
 
     @group.command(name="httpanimal", description="Get an animal image for an HTTP status code!")
-    async def httpdog(self, interaction, animal: discord.Option(str, description="The animal to get the HTTP image of.", choices=["Dog", "Cat"]), 
-                                 status: discord.Option(str, description="The HTTP status code to get image of.")):
+    async def httpdog(self, interaction, animal: discord.Option(str, description="The animal to get the HTTP image of.", choices=["Dog", "Cat"]), # type: ignore
+                                 status: discord.Option(str, description="The HTTP status code to get image of.")): # type: ignore
            rurl = handler.get("https://http.{0}/{1}.jpg".format(animal.lower(), status))
            if rurl.status_code == 404:
                   await interaction.response.send_message(":x: {} not found! That status code does not exist.".format(animal))
@@ -211,7 +211,7 @@ class Apis(commands.Cog):
            await interaction.response.send_message(embed=embed)
 
     @group.command(name="pokedex", description="Get info on a pokemon!")
-    async def pokedex(self, interaction, pokemon: discord.Option(str, description="Pokemon to get data of")):
+    async def pokedex(self, interaction, pokemon: discord.Option(str, description="Pokemon to get data of")): # type: ignore
            response = cogs.combinebot.getPoke(pokemon=pokemon)
            if response == ":x: Pokemon not found! Maybe you misspelled it?":
                  interaction.response.send_message(response)
@@ -240,7 +240,7 @@ class Apis(commands.Cog):
            await interaction.response.send_message(embed=embed)
 
     @group.command(name="dictionary", description="Get the definition of an english word!")
-    async def dictionary(self, interaction, word: discord.Option(str, description="Word to get definition of")):
+    async def dictionary(self, interaction, word: discord.Option(str, description="Word to get definition of")): # type: ignore
            await interaction.defer()
            request = handler.get("https://api.dictionaryapi.dev/api/v2/entries/en/{}".format(word))
            if request.status_code == 404:
@@ -282,7 +282,7 @@ class Apis(commands.Cog):
            await interaction.response.send_message(embed=embed)
     
     @group.command(name="bible", description="Get a verse from the Bible!")
-    async def bible(self, interaction, book: discord.Option(str, description="Name of book to get verse from."), chapter: discord.Option(str, description="Chapter to get verse from"), verse: discord.Option(str, description="Verse to get text from")):
+    async def bible(self, interaction, book: discord.Option(str, description="Name of book to get verse from."), chapter: discord.Option(str, description="Chapter to get verse from"), verse: discord.Option(str, description="Verse to get text from")): # type: ignore
            response = cogs.combinebot.getBible(book=book, chapter=chapter, verse=verse)
            if response == ":x: Book/Chapter/Verse not found!":
                  await interaction.response.send_message(response)
@@ -296,7 +296,7 @@ class Apis(commands.Cog):
            await interaction.response.send_message(embed=embed)
 
     @group.command(name="rss", description="Get the RSS feed from a website!")
-    async def rss(self, interaction, link: discord.Option(str, description="Link to the RSS feed")):
+    async def rss(self, interaction, link: discord.Option(str, description="Link to the RSS feed")): # type: ignore
            await interaction.defer()
            d = feedparser.parse(link)
            
@@ -312,7 +312,7 @@ class Apis(commands.Cog):
 
 
     @group.command(name="demonlist", description="Get info on a demon from the Pointercrate Geometry Dash demon list!")
-    async def demonlist(self, interaction, demonname: discord.Option(str, description="Name of the demon to get info on. CASE SENSITIVE!")):
+    async def demonlist(self, interaction, demonname: discord.Option(str, description="Name of the demon to get info on. CASE SENSITIVE!")): # type: ignore
            await interaction.defer()
            demons = client.get_demons(name=demonname)
            
@@ -341,8 +341,8 @@ class Apis(commands.Cog):
 
     @group.command(name="trivia", description="Get a random trivia")
     async def trivia(self, interaction, 
-                     triviacategory: discord.Option(str, description="Category for trivia questions", choices=category),
-                     triviadifficulty: discord.Option(str, description="The difficulty of the questions", choices=difficulty)):
+                     triviacategory: discord.Option(str, description="Category for trivia questions", choices=category), # type: ignore
+                     triviadifficulty: discord.Option(str, description="The difficulty of the questions", choices=difficulty)): # type: ignore
 
           await interaction.defer()
           response = cogs.combinebot.getTrivia(category=triviacategory, difficulty=triviadifficulty)
@@ -404,9 +404,9 @@ class Apis(commands.Cog):
 
     @group.command(name="cattext", description="Put text on a random image of a cat!")
     async def cattext(self, interaction, 
-                      text: discord.Option(str, description="Text to put on the cat image"),
-                      font_size: discord.Option(int, description="Font size of the text"),
-                      font_color: discord.Option(str, description="Font color of text.")):
+                      text: discord.Option(str, description="Text to put on the cat image"), # type: ignore
+                      font_size: discord.Option(int, description="Font size of the text"), # type: ignore
+                      font_color: discord.Option(str, description="Font color of text.")): # type: ignore
           cat = cogs.combinebot.getCatText(text=text, font_size=font_size, font_color=font_color)
           embed = cogs.combinebot.makeEmbed(
                 title="Cat"
@@ -416,7 +416,7 @@ class Apis(commands.Cog):
 
     @group.command(name="urbandictionary", description="Search for a word on Urban Dictionary!")
     async def urbandictionary(self, interaction, 
-                              term: discord.Option(str, description="Term to search for.")):
+                              term: discord.Option(str, description="Term to search for.")): # type: ignore
           await interaction.defer()
           char_limit = 1024
           j = cogs.combinebot.getUrban(term=term)
@@ -443,7 +443,7 @@ class Apis(commands.Cog):
 
     @group.command(name="qrcode", description="Generate a QR code from a URL!")
     async def qrcode(self, interaction, 
-                     url: discord.Option(str, description="URL to make QR code out of. Must begin with http(s)://")):
+                     url: discord.Option(str, description="URL to make QR code out of. Must begin with http(s)://")): # type: ignore
           qr = cogs.combinebot.getQRCode(url=url)
           embed = cogs.combinebot.makeEmbed(
                 title="QR Code"

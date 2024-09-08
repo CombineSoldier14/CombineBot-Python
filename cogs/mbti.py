@@ -26,7 +26,7 @@ class Mbti(commands.Cog):
        
 
     @group.command(title="disc2mbti", description="Converts your Indigo DISC scores into MBTI personality types!")
-    async def disc2mbti(self, interaction, d: discord.Option(int, description="Your Dominance Score"), i: discord.Option(int, description="Your Influence Score"), s: discord.Option(int, description="Your Steadiness Score"), c: discord.Option(int, description="Your Compliance Score")):
+    async def disc2mbti(self, interaction, d: discord.Option(int, description="Your Dominance Score"), i: discord.Option(int, description="Your Influence Score"), s: discord.Option(int, description="Your Steadiness Score"), c: discord.Option(int, description="Your Compliance Score")): # type: ignore
         
        
         if i >= 50:
@@ -64,8 +64,8 @@ class Mbti(commands.Cog):
 
     @group.command(name="mostmbti", description="A command to find what the most (blank) MBTI is!")
     async def mostmbti(self, interaction, 
-                       most1: discord.Option(str, description="The first option to find what the most (blank) (blank) MBTI is!", choices=["introverted", "extraverted", "intuitive", "sensing", "thinking", "feeling", "perceiving", "judging"]), 
-                       most2: discord.Option(str, description="The second option to find what the most (blank) (blank) MBTI is!", choices=["introvert", "extravert", "intuitive", "sensor", "thinker", "feeler", "perceiver", "judger"])):
+                       most1: discord.Option(str, description="The first option to find what the most (blank) (blank) MBTI is!", choices=["introverted", "extraverted", "intuitive", "sensing", "thinking", "feeling", "perceiving", "judging"]),  # type: ignore
+                       most2: discord.Option(str, description="The second option to find what the most (blank) (blank) MBTI is!", choices=["introvert", "extravert", "intuitive", "sensor", "thinker", "feeler", "perceiver", "judger"])): # type: ignore
         mbti = mostmbtis[0][most1][most2]
         await interaction.response.send_message("The most {0} {1} is **{2}**".format(most1, most2, mbti))
         

@@ -26,14 +26,14 @@ class Moderation(commands.Cog):
 
 
     @group.command(name="userid", description="Find the ID of a mentioned user")
-    async def userid(self, interaction, user: discord.Option(discord.Member, description="Member to find ID of", required=True)):
+    async def userid(self, interaction, user: discord.Option(discord.Member, description="Member to find ID of", required=True)): # type: ignore
       await interaction.response.send_message(f"That user's id is " + str(user.id))
 
     @group.command(name="ban", description="Bans a user.")
     @commands.has_permissions(ban_members = True)
     async def ban(self, interaction, 
-                  user: discord.Option(discord.Member, description="User to ban", required=True), 
-                  reason: discord.Option(str, description="Reason for ban", required=True)):
+                  user: discord.Option(discord.Member, description="User to ban", required=True),  # type: ignore
+                  reason: discord.Option(str, description="Reason for ban", required=True)): # type: ignore
       await user.ban(reason = reason)
       embed = cogs.combinebot.makeEmbed(
        title="Ban",
@@ -47,8 +47,8 @@ class Moderation(commands.Cog):
     @group.command(name="kick", description="Kicks a user.")
     @commands.has_permissions(kick_members = True)
     async def kick(self, interaction, 
-                   user: discord.Option(discord.Member, description="User to kick", required=True), 
-                   reason: discord.Option(str, description="Reason for ban", required=True)):
+                   user: discord.Option(discord.Member, description="User to kick", required=True),  # type: ignore
+                   reason: discord.Option(str, description="Reason for ban", required=True)): # type: ignore
       await user.kick(reason = reason)
       embed = cogs.combinebot.makeEmbed(
        title="Kick",
@@ -63,7 +63,7 @@ class Moderation(commands.Cog):
     @commands.has_permissions(manage_messages = True)
     @commands.has_permissions(read_message_history = True)
     async def purge(self, interaction, 
-                    number: discord.Option(int, description="Number of messages to purge. Max is 100", required=True)):
+                    number: discord.Option(int, description="Number of messages to purge. Max is 100", required=True)): # type: ignore
        if number > 100:
           await interaction.response.send_message(":x: Number of messages cannot exceed 100!")
           return
@@ -74,8 +74,8 @@ class Moderation(commands.Cog):
     @group.command(name="timeout", description="Timeout a user.")
     @commands.has_permissions(moderate_members=True)
     async def timeout(self, interaction, 
-                      time: discord.Option(int, description="Amount of minutes to time out user", required=True), 
-                      user: discord.Option(discord.Member, description="User to timeout", required=True)):
+                      time: discord.Option(int, description="Amount of minutes to time out user", required=True),  # type: ignore
+                      user: discord.Option(discord.Member, description="User to timeout", required=True)): # type: ignore
         await user.timeout_for(datetime.timedelta(minutes=time))
         await interaction.response.send_message("{0} has been timed out for **{1}**.".format(user, time))
 
@@ -84,7 +84,7 @@ class Moderation(commands.Cog):
     @group.command(name="untimeout", description="Removes a timeout from a user.")
     @commands.has_permissions(moderate_members=True)
     async def untimeout(self, interaction, 
-                        user: discord.Option(discord.Member, description="User to untimeout", required=True)):
+                        user: discord.Option(discord.Member, description="User to untimeout", required=True)): # type: ignore
         await user.remove_timeout()
         await interaction.response.send_message("{0} has had their timeout removed!".format(user))
 
@@ -92,8 +92,8 @@ class Moderation(commands.Cog):
     @group.command(name="createchannel", description="Creates a basic text channel")
     @commands.has_permissions(manage_channels=True)
     async def createchannel(self, interaction, 
-                            name: discord.Option(str, description="Name of channel"),
-                            type: discord.Option(str, description="Type of channel", choices=["text", "voice"])):
+                            name: discord.Option(str, description="Name of channel"), # type: ignore
+                            type: discord.Option(str, description="Type of channel", choices=["text", "voice"])): # type: ignore
         guild = interaction.guild
         if type == "text":
            await guild.create_text_channel('{0}'.format(name))
@@ -104,7 +104,7 @@ class Moderation(commands.Cog):
 
     @group.command(name="deletechannel", description="Deletes a channel in the server.")
     @commands.has_permissions(manage_channels=True)
-    async def deletechannel(self, interaction, channel: discord.Option(discord.TextChannel, description="Channel to delete"), reason: discord.Option(str, description="Reason for deletion")):
+    async def deletechannel(self, interaction, channel: discord.Option(discord.TextChannel, description="Channel to delete"), reason: discord.Option(str, description="Reason for deletion")): # type: ignore
         await channel.delete(reason=reason)
         embed = cogs.combinebot.makeEmbed(
             title="#{} was deleted".format(channel),
@@ -116,40 +116,40 @@ class Moderation(commands.Cog):
 
     @group.command(name="thread", description="Create a new basic thread")
     @commands.has_permissions(create_public_threads=True)
-    async def thread(self, interaction, title: discord.Option(str, description="Title of thread", required=True), startmsg: discord.Option(str, description="Starting message in thread", required=True)):
+    async def thread(self, interaction, title: discord.Option(str, description="Title of thread", required=True), startmsg: discord.Option(str, description="Starting message in thread", required=True)): # type: ignore
         message = await interaction.send(startmsg)
         await message.create_thread(name=title)
         await interaction.response.send_message("Your thread, **{0}**, has been created!".format(title))
 
     @group.command(name="channelid", description="Get the ID of the channel you're currently in!")
-    async def channelid(self, interaction, channel: discord.Option(discord.TextChannel, description="Channel to get ID of.")):
+    async def channelid(self, interaction, channel: discord.Option(discord.TextChannel, description="Channel to get ID of.")): # type: ignore
        await interaction.response.send_message("That channel's ID is **{}**".format(str(channel.id)))
     
     @group.command(name="createinvite", description="Create an invite for the server you're in!")
     @commands.has_permissions(create_instant_invite=True)
     async def createinvite(self, interaction, 
-                           age: discord.Option(int, description="How long the invite should last in seconds. Enter 0 for infinite."),
-                           max_uses: discord.Option(int, description="Max amount of times the invite can be used. Enter 0 for infinite."),
-                           channel: discord.Option(discord.TextChannel, description="Channel the invite should be to.")):
+                           age: discord.Option(int, description="How long the invite should last in seconds. Enter 0 for infinite."), # type: ignore
+                           max_uses: discord.Option(int, description="Max amount of times the invite can be used. Enter 0 for infinite."), # type: ignore
+                           channel: discord.Option(discord.TextChannel, description="Channel the invite should be to.")): # type: ignore
        invite = await channel.create_invite(max_age=age, max_uses=max_uses)
        await interaction.response.send_message(invite)
 
 
     @group.command(name="poll", description="Creates a votable poll!")
     async def poll(self, ctx,
-                   multiselects: discord.Option(str, description="Allow users to select multiple answers?", choices=["True", "False"]),
-                   duration: discord.Option(int, description="Number of hours that the poll will expire"),
-                   question: discord.Option(str, description="Question of poll"),
-                   answer1: discord.Option(str, description="Answer for the poll"),
-                   answer2: discord.Option(str, description="Answer for the poll"),
-                   answer3: discord.Option(str, description="Answer for the poll", required=False),
-                   answer4: discord.Option(str, description="Answer for the poll", required=False),
-                   answer5: discord.Option(str, description="Answer for the poll", required=False),
-                   answer6: discord.Option(str, description="Answer for the poll", required=False),
-                   answer7: discord.Option(str, description="Answer for the poll", required=False),
-                   answer8: discord.Option(str, description="Answer for the poll", required=False),
-                   answer9: discord.Option(str, description="Answer for the poll", required=False),
-                   answer10: discord.Option(str, description="Answer for the poll", required=False)
+                   multiselects: discord.Option(str, description="Allow users to select multiple answers?", choices=["True", "False"]), # type: ignore
+                   duration: discord.Option(int, description="Number of hours that the poll will expire"), # type: ignore
+                   question: discord.Option(str, description="Question of poll"), # type: ignore
+                   answer1: discord.Option(str, description="Answer for the poll"), # type: ignore
+                   answer2: discord.Option(str, description="Answer for the poll"), # type: ignore
+                   answer3: discord.Option(str, description="Answer for the poll", required=False), # type: ignore
+                   answer4: discord.Option(str, description="Answer for the poll", required=False), # type: ignore
+                   answer5: discord.Option(str, description="Answer for the poll", required=False), # type: ignore
+                   answer6: discord.Option(str, description="Answer for the poll", required=False), # type: ignore
+                   answer7: discord.Option(str, description="Answer for the poll", required=False), # type: ignore
+                   answer8: discord.Option(str, description="Answer for the poll", required=False), # type: ignore
+                   answer9: discord.Option(str, description="Answer for the poll", required=False), # type: ignore
+                   answer10: discord.Option(str, description="Answer for the poll", required=False) # type: ignore
                    ):
        answerslist = [discord.PollAnswer(answer1), discord.PollAnswer(answer2)]
 

@@ -23,15 +23,15 @@ class Utilitycog(commands.Cog):
         self._last_member = None
     
     @group.command(name="avatar", description="Find the avatar of the mentioned user!")
-    async def avatar(self, interaction, user: discord.Option(discord.Member, description="Member to get avatar of", required=True)):
+    async def avatar(self, interaction, user: discord.Option(discord.Member, description="Member to get avatar of", required=True)): # type: ignore
       await interaction.response.send_message(user.display_avatar)
 
 
     @group.command(name="makeembed", description="Make your own embed!")
-    async def makeembed(self, interaction, title: discord.Option(str, description="Title of embed"), 
-                        description: discord.Option(str, description="Description of embed"), 
-                        footer: discord.Option(str, description="Footer of embed"), 
-                        color: discord.Option(int, description="Color of embed in hex format")):
+    async def makeembed(self, interaction, title: discord.Option(str, description="Title of embed"),  # type: ignore
+                        description: discord.Option(str, description="Description of embed"),  # type: ignore
+                        footer: discord.Option(str, description="Footer of embed"),  # type: ignore
+                        color: discord.Option(int, description="Color of embed in hex format")): # type: ignore
         embed = cogs.combinebot.makeEmbed(title=title, description=description, color=color)
         embed.set_footer(text=footer)
         await interaction.response.send_message(embed=embed)
@@ -59,7 +59,7 @@ class Utilitycog(commands.Cog):
         await interaction.response.send_message("Time has been resumed!")
     
     @group.command(name="userinfo", description="Gets info on a user in the server!")
-    async def userinfo(self, interaction, user: discord.Option(discord.Member, description="User to get info of", required=True)):
+    async def userinfo(self, interaction, user: discord.Option(discord.Member, description="User to get info of", required=True)): # type: ignore
         if user.bot == True:
          embed = cogs.combinebot.makeEmbed(title="Info on {0}".format(user), 
                                            description="""
@@ -98,7 +98,7 @@ class Utilitycog(commands.Cog):
          await interaction.response.send_message(embed=embed)
 
     @group.command(name="channelinfo", description="Shows detailed info on a server channel.")
-    async def channelinfo(self, interaction, channel: discord.Option(discord.TextChannel, description="Channel to get info of")):
+    async def channelinfo(self, interaction, channel: discord.Option(discord.TextChannel, description="Channel to get info of")): # type: ignore
         embed = cogs.combinebot.makeEmbed(
             title="Info on #{0}".format(channel), 
             description="""
@@ -133,7 +133,7 @@ class Utilitycog(commands.Cog):
         await interaction.response.send_message(embed=embed)
 
     @group.command(name="button", description="Make a embed link button!")
-    async def button(self, interaction, link: discord.Option(str, description="Link for the button. Must begin with http(s)://"), label: discord.Option(str, description="Label for button")):
+    async def button(self, interaction, link: discord.Option(str, description="Link for the button. Must begin with http(s)://"), label: discord.Option(str, description="Label for button")): # type: ignore
          class ButtonView(discord.ui.View):
            def __init__(self):
               super().__init__(timeout=None)
@@ -144,7 +144,7 @@ class Utilitycog(commands.Cog):
          await interaction.response.send_message(view=ButtonView())
 
     @group.command(name="uuid", description="Generate a Version 4 UUID")
-    async def uuid(self, interaction, amount: discord.Option(int, description="How many UUIDs to create (max 50)", required=False, default=1)):
+    async def uuid(self, interaction, amount: discord.Option(int, description="How many UUIDs to create (max 50)", required=False, default=1)): # type: ignore
          if amount > 50:
               await interaction.response.send_message(":x: Too many requests! Must be less than 50.")
               return
@@ -156,7 +156,7 @@ class Utilitycog(commands.Cog):
 
 
     @group.command(name="randomstring", description="Generate a random string of a custom length")
-    async def randomstring(self, interaction, length: discord.Option(int, description="Length of the string. Maximum is 100! Defaults to 12.", required=False, default=12)):
+    async def randomstring(self, interaction, length: discord.Option(int, description="Length of the string. Maximum is 100! Defaults to 12.", required=False, default=12)): # type: ignore
          r = cogs.combinebot.getRandomString(length=length)
          await interaction.response.send_message(r)
 
@@ -166,7 +166,7 @@ class Utilitycog(commands.Cog):
 
     @group.command(name="roleid", description="Get the ID of a role!")
     async def roleid(self, interaction, 
-                     role: discord.Option(discord.Role, description="Role to get ID of")):
+                     role: discord.Option(discord.Role, description="Role to get ID of")): # type: ignore
         await interaction.response.send_message("The role **{0}** has an ID of **{1}**".format(role.name, str(role.id)))
 
     @group.command(name="welcomescreen", description="Get the welcome screen of the server you're in!")

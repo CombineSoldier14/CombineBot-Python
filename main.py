@@ -50,8 +50,8 @@ if use_db != 0:
 
 #The Dev status is meant for if CombineBot is running in DEV mode which changes some names and icons.
 
-
-if dev_status != 0 or True:
+# alphagamedeveloper: you should really just use a real boolean here... this is a mess
+if dev_status in (1, True, "1", "True", "true", "TRUE"):
             name = "CombineBot Development Edition"
             game = "with unstable ass commands"
             icon = "https://cdn.discordapp.com/app-icons/1227477531461025854/85f59950e14cca56e4b1bcefd911ca23.png?size=256"
@@ -281,7 +281,7 @@ async def helloworld(interaction):
 
 
 @bot.slash_command(name="checklevel", description="Get your current level!")
-async def checklevel(interaction, user: discord.Option(discord.Member, description="User to get level of")):
+async def checklevel(interaction, user: discord.Option(discord.Member, description="User to get level of")): # type: ignore
      if use_db != 0 or True:
        cursor.execute("SELECT COUNT(*) FROM levels WHERE id = %s", [user.id])
        status = cursor.fetchone()[0]
@@ -328,7 +328,7 @@ async def about(interaction):
     
 @bot.slash_command(name="toggleleveling", description="A command for server owners to toggle leveling on/off.")
 @commands.has_permissions(administrator=True)
-async def disableleveling(interaction, leveling: discord.Option(bool, choices=[True, False])):
+async def disableleveling(interaction, leveling: discord.Option(bool, choices=[True, False])): # type: ignore
      if use_db != 0 or True:
          cursor = cnx.cursor()
          if leveling == True:
@@ -358,7 +358,7 @@ async def disableleveling(interaction, leveling: discord.Option(bool, choices=[T
      
 
 @bot.slash_command(name="say", description="Use the bot to say messages!")
-async def _say(interaction, message: discord.Option(str, description="Message for the bot to say")):
+async def _say(interaction, message: discord.Option(str, description="Message for the bot to say")): # type: ignore
       await interaction.response.send_message("Message has been sent!", ephemeral=True)
       await interaction.send(message)
 

@@ -20,7 +20,7 @@ class Rps(commands.Cog):
         self.bot = bot
         self._last_member = None
     @commands.slash_command(title="rps", description="Play Rock Paper Scissors with UltraBot!")
-    async def rps(self, interaction, choice: discord.Option(str, description="Your choice! Choose either rock, paper, or scissors.", choices=["rock", "paper", "scissors"])):
+    async def rps(self, interaction, choice: discord.Option(str, description="Your choice! Choose either rock, paper, or scissors.", choices=["rock", "paper", "scissors"])): # type: ignore
         user_choice = choice.lower()
         bot_choice = random.choice(WORDS)
         if user_choice == bot_choice:

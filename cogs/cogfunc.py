@@ -25,7 +25,7 @@ class Cogfunc(commands.Cog):
           
 
     @group.command(title="mbtifinder", description="Tells you an MBTI via specified dominant/secondary functions.")
-    async def mbtifinder(self, interaction, dom: discord.Option(str, description="Dominant function", choices=["Ti", "Te", "Fi", "Fe", "Si", "Se", "Ni", "Ne"]), sec: discord.Option(str, description="Secondary function", choices=["Ti", "Te", "Fi", "Fe", "Si", "Se", "Ni", "Ne"])):
+    async def mbtifinder(self, interaction, dom: discord.Option(str, description="Dominant function", choices=["Ti", "Te", "Fi", "Fe", "Si", "Se", "Ni", "Ne"]), sec: discord.Option(str, description="Secondary function", choices=["Ti", "Te", "Fi", "Fe", "Si", "Se", "Ni", "Ne"])): # type: ignore
             for functions in mbtifuncs:
                 if dom == functions["dom"] and sec == functions["sec"]:
                     mbti = functions["mbti"]
@@ -38,7 +38,7 @@ class Cogfunc(commands.Cog):
                 
                 
     @group.command(name="mbtifunctions", description="Shows you the cognitive function stack for an MBTI")
-    async def mbtifunctions(self, interaction, mbti: discord.Option(str, description="The MBTI to get the stack of. Will be random if left blank.", choices=mbtilist)):
+    async def mbtifunctions(self, interaction, mbti: discord.Option(str, description="The MBTI to get the stack of. Will be random if left blank.", choices=mbtilist)): # type: ignore
         stack = ""
         for functionz in mbtifuncs:
              if mbti == functionz["mbti"]:
