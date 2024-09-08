@@ -21,7 +21,7 @@ class Mcstatus(commands.Cog):
         self._last_member = None
     
     @group.command(name="mcjava", description="Get the status of a minecraft java server!")
-    async def mcjava(self, interaction, host: discord.Option(str, description="Server URL to get info on.", required=True), port: discord.Option(int, description="The port of the Minecraft server", default=25565)):
+    async def mcjava(self, interaction, host: discord.Option(str, description="Server URL to get info on.", required=True), port: discord.Option(int, description="The port of the Minecraft server", default=25565)): # type: ignore
            await interaction.defer()
            addr = "{0}:{1}".format(host, port)
            serverjava = JavaServer.lookup(addr)
@@ -47,7 +47,7 @@ class Mcstatus(commands.Cog):
            await interaction.followup.send(embed=embed)
 
     @group.command(name="mcbedrock", description="Get the status of a minecraft bedrock server!")
-    async def mcbedrock(self, interaction, hosturl: discord.Option(str, description="Server URL to get info on.", required=True), portnumber: discord.Option(int, description="The port of the Minecraft server", default=25565)):
+    async def mcbedrock(self, interaction, hosturl: discord.Option(str, description="Server URL to get info on.", required=True), portnumber: discord.Option(int, description="The port of the Minecraft server", default=25565)): # type: ignore
            await interaction.defer()
            bedrockaddr = "{0}:{1}".format(hosturl, portnumber)
            serverbedrock = BedrockServer.lookup(bedrockaddr)

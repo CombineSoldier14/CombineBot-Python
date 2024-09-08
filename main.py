@@ -281,7 +281,7 @@ async def helloworld(interaction):
 
 
 @bot.slash_command(name="checklevel", description="Get your current level!")
-async def checklevel(interaction, user: discord.Option(discord.Member, description="User to get level of")):
+async def checklevel(interaction, user: discord.Option(discord.Member, description="User to get level of")): # type: ignore
      if use_db != 0 or True:
        cursor.execute("SELECT COUNT(*) FROM levels WHERE id = %s", [user.id])
        status = cursor.fetchone()[0]
@@ -328,7 +328,7 @@ async def about(interaction):
     
 @bot.slash_command(name="toggleleveling", description="A command for server owners to toggle leveling on/off.")
 @commands.has_permissions(administrator=True)
-async def disableleveling(interaction, leveling: discord.Option(bool, choices=[True, False])):
+async def disableleveling(interaction, leveling: discord.Option(bool, choices=[True, False])): # type: ignore
      if use_db != 0 or True:
          cursor = cnx.cursor()
          if leveling == True:
@@ -358,7 +358,7 @@ async def disableleveling(interaction, leveling: discord.Option(bool, choices=[T
      
 
 @bot.slash_command(name="say", description="Use the bot to say messages!")
-async def _say(interaction, message: discord.Option(str, description="Message for the bot to say")):
+async def _say(interaction, message: discord.Option(str, description="Message for the bot to say")): # type: ignore
       await interaction.response.send_message("Message has been sent!", ephemeral=True)
       await interaction.send(message)
 

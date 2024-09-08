@@ -166,9 +166,9 @@ class StandBattle(commands.Cog):
 
     @commands.slash_command(name="standbattle", description="Engage in a jojo-style stand battle between bots and their users!")
     async def standbattle(self, interaction,
-                          bot1: discord.Option(discord.Member, description="Your bot"),
-                          person2: discord.Option(discord.Member, description="Person #2"),
-                          bot2: discord.Option(discord.Member, description="Person #2's bot")):
+                          bot1: discord.Option(discord.Member, description="Your bot"), # type: ignore
+                          person2: discord.Option(discord.Member, description="Person #2"), # type: ignore
+                          bot2: discord.Option(discord.Member, description="Person #2's bot")): # type: ignore
         person1 = interaction.author
         if bot1.bot == False or bot2.bot == False:
             await interaction.response.send_message(":x: One of the specified bots are not bots.")

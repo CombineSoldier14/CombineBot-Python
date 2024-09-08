@@ -22,7 +22,7 @@ class Dnd(commands.Cog):
         self.bot = bot
         self._last_member = None
     @group.command(name="dndmodifier", description="Get info on DND modifiers!")
-    async def dndmodifier(self, interaction, mod: discord.Option(str, description="The modifier to get info on", choices=["STR", "DEX", "CON", "INT", "WIS", "CHA"])):
+    async def dndmodifier(self, interaction, mod: discord.Option(str, description="The modifier to get info on", choices=["STR", "DEX", "CON", "INT", "WIS", "CHA"])): # type: ignore
         j = cogs.combinebot.getDNDmod(mod=mod)
        
         skillz = ""
