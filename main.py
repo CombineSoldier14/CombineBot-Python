@@ -51,6 +51,7 @@ if use_db != 0:
 #The Dev status is meant for if CombineBot is running in DEV mode which changes some names and icons.
 
 # alphagamedeveloper: you should really just use a real boolean here... this is a mess
+# combinrsoldier14: You're literally the one that added this -_-
 if dev_status in (1, True, "1", "True", "true", "TRUE"):
             name = "CombineBot Development Edition"
             game = "with unstable ass commands"
