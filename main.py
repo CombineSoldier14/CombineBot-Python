@@ -56,6 +56,7 @@ if dev_status in (1, True, "1", "True", "true", "TRUE"):
             name = "CombineBot Development Edition"
             game = "with unstable ass commands"
             prefix = "-"
+            icon = ""
             link = "https://discord.com/oauth2/authorize?client_id=1227477531461025854"
 
 
@@ -63,6 +64,7 @@ else:
             name = "CombineBot"
             game = "https://combinesolder14.site/combinebot"
             prefix = ";"
+            icon = "https://i.postimg.cc/65c12W1c/d89047f0124e9aa9e86ed3971af5e7ce.png"
             link = "https://discord.com/oauth2/authorize?client_id=1225220764861730867"
 
 
@@ -97,8 +99,6 @@ bot.load_extension('cogs.cogfunctest')
 bot.load_extension('cogs.enneagramtest')
 bot.load_extension('cogs.mbtitest')
 bot.load_extension('cogs.standbattle')
-
-icon = bot.user.avatar
 
 @tasks.loop(seconds=30)
 async def rotateStatus():
