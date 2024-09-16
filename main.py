@@ -56,7 +56,7 @@ if dev_status in (1, True, "1", "True", "true", "TRUE"):
             name = "CombineBot Development Edition"
             game = "with unstable ass commands"
             prefix = "-"
-            icon = ""
+            icon = "https://i.postimg.cc/8PfmD1gs/329fabbb47c098113bb8af904a6d2638.png"
             link = "https://discord.com/oauth2/authorize?client_id=1227477531461025854"
 
 
