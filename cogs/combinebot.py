@@ -45,14 +45,14 @@ dev_status = os.getenv("DEVMODE")
 if dev_status == 1:
             name = "CombineBot Development Edition"
             game = "with unstable ass commands"
-            icon = "https://cdn.discordapp.com/app-icons/1227477531461025854/85f59950e14cca56e4b1bcefd911ca23.png?size=256"
+            icon = "https://i.postimg.cc/8PfmD1gs/329fabbb47c098113bb8af904a6d2638.png"
             prefix = "-"
 
 
 else:
             name = "CombineBot"
             game = "https://combinebot.blogspot.com/"
-            icon = "https://i.postimg.cc/wjgpb7bb/image-1.png"
+            icon = "https://i.postimg.cc/65c12W1c/d89047f0124e9aa9e86ed3971af5e7ce.png"
             prefix = ";"
 
 def getBotInfo():
