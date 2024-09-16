@@ -51,19 +51,19 @@ if use_db != 0:
 #The Dev status is meant for if CombineBot is running in DEV mode which changes some names and icons.
 
 # alphagamedeveloper: you should really just use a real boolean here... this is a mess
-# combinrsoldier14: You're literally the one that added this -_-
+# combinesoldier14: You're literally the one that added this -_-
 if dev_status in (1, True, "1", "True", "true", "TRUE"):
             name = "CombineBot Development Edition"
             game = "with unstable ass commands"
-            icon = "https://cdn.discordapp.com/app-icons/1227477531461025854/85f59950e14cca56e4b1bcefd911ca23.png?size=256"
+            icon = bot.user.avatar
             prefix = "-"
             link = "https://discord.com/oauth2/authorize?client_id=1227477531461025854"
 
 
 else:
             name = "CombineBot"
-            game = "https://combinebot.blogspot.com/"
-            icon = "https://i.postimg.cc/wjgpb7bb/image-1.png"
+            game = "https://combinesolder14.site/combinebot"
+            icon = bot.user.avatar
             prefix = ";"
             link = "https://discord.com/oauth2/authorize?client_id=1225220764861730867"
 
