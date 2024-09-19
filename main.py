@@ -133,7 +133,7 @@ async def on_message(message: discord.Message):
                     newlevel = cursor.fetchone()
                     cnx.commit()
                     b = await message.channel.send("<@{0}> you have leveled up to {1}!\n-# This message will automatically be deleted in 30 seconds.".format(message.author.id, newlevel[0]))
-                    b.delete(delay=30)
+                    await b.delete(delay=30)
       else:
             return
 
