@@ -118,7 +118,7 @@ async def on_message(message: discord.Message):
            r = cursor.fetchone()
            tup = (1, 2, 3)
            print(tup  + r)
-           if r == 0:
+           if not r:
                 cursor.execute("INSERT INTO levels (id) values (%s)", [message.author.id])
                 cnx.commit()
            
