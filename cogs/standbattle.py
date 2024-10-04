@@ -25,7 +25,7 @@ if use_db != 0:
 async def levelUp(id, cnx):
     cursor.execute("SELECT COUNT(*) FROM levels WHERE id = %s", [id])
     r = cursor.fetchone()
-    if r == None:
+    if r[0] == 0:
         cursor.execute("INSERT INTO levels (id) values (%s)", [id])
     cursor.execute("UPDATE levels SET battles_won = battles_won + 1 WHERE id = %s;", [id])
     cursor.execute("UPDATE levels SET level = level + 1 WHERE id = %s;", [id])

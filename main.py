@@ -58,8 +58,6 @@ if dev_status in (1, True, "1", "True", "true", "TRUE"):
             prefix = "-"
             icon = "https://i.postimg.cc/8PfmD1gs/329fabbb47c098113bb8af904a6d2638.png"
             link = "https://discord.com/oauth2/authorize?client_id=1227477531461025854"
-
-
 else:
             name = "CombineBot"
             game = "https://combinesolder14.site/combinebot"
@@ -116,7 +114,7 @@ async def on_message(message: discord.Message):
                 return
            cursor.execute("SELECT COUNT(*) FROM levels WHERE id = %s", [message.author.id])
            r = cursor.fetchone()
-           if len(r) != 17 or len(r) != 18:
+           if r[0] == 0:
                 cursor.execute("INSERT INTO levels (id) values (%s)", [message.author.id])
                 cnx.commit()
            
@@ -145,7 +143,7 @@ async def on_application_command(ctx: discord.context.ApplicationContext):
                 return
            cursor.execute("SELECT COUNT(*) FROM levels WHERE id = %s", [ctx.author.id])
            r = cursor.fetchone()
-           if r == None or 0 or []:
+           if r[0] == 0:
                 cursor.execute("INSERT INTO levels (id) values (%s)", [ctx.author.id])
            cursor.execute("UPDATE levels SET commands_ran = commands_ran + 1 WHERE id = %s;", [ctx.author.id])
            cursor.execute("SELECT commands_ran FROM levels WHERE id = %s", [ctx.author.id])

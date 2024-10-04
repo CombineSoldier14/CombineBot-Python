@@ -80,7 +80,7 @@ class mysqlcnx():
         self.cnx = cnx
         self.canUseDatabase = canUseDatabase
         if canUseDatabase:
-            self.cursor = cnx.cursor()
+            self.cursor = cnx.cursor(buffered=True)
         else:
             self.cursor = None
 
