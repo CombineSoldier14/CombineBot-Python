@@ -116,7 +116,8 @@ async def on_message(message: discord.Message):
                 return
            cursor.execute("SELECT COUNT(*) FROM levels WHERE id = %s", [message.author.id])
            r = cursor.fetchone()
-           print((1, 2, 3)  + r)
+           tup = (1, 2, 3)
+           print(tup  + r)
            if r == 0:
                 cursor.execute("INSERT INTO levels (id) values (%s)", [message.author.id])
                 cnx.commit()
