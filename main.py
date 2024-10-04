@@ -112,12 +112,12 @@ async def on_message(message: discord.Message):
       if use_db != 0:
            cursor.execute("SELECT leveling_enabled FROM guild_settings WHERE guild_id = %s", [message.guild.id])
            levelingenable = cursor.fetchone()
-           if levelingenable == 0:
+           if levelingenable == 0 or levelingenable == ():
                 return
            cursor.execute("SELECT COUNT(*) FROM levels WHERE id = %s", [message.author.id])
            r = cursor.fetchone()
-           print("value " + r)
-           if r == None or r == 0 or r == []:
+           print(r)
+           if r == None or r == 0 or r == [] or r == ():
                 cursor.execute("INSERT INTO levels (id) values (%s)", [message.author.id])
                 cnx.commit()
            
