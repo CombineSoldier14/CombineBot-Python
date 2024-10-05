@@ -139,6 +139,8 @@ async def on_message(message: discord.Message):
 @bot.listen("on_application_command")
 async def on_application_command(ctx: discord.context.ApplicationContext):
      if use_db != 0:
+           cursor.execute("INSERT INTO guild_settings (guild_id) values (%s)", [message.guild.id])
+           cnx.commit()
            cursor.execute("SELECT leveling_enabled FROM guild_settings WHERE guild_id = %s", [ctx.guild.id])
            levelingenable = cursor.fetchone()
            if levelingenable == 0:
