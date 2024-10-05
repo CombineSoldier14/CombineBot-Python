@@ -108,9 +108,11 @@ async def rotateStatus():
 @bot.listen("on_message")
 async def on_message(message: discord.Message):
       if use_db != 0:
+           cursor.execute("INSERT INTO guild_settings (guild_id) values (%s)", [message.guild.id])
+           cnx.commit()
            cursor.execute("SELECT leveling_enabled FROM guild_settings WHERE guild_id = %s", [message.guild.id])
            levelingenable = cursor.fetchone()
-           if levelingenable == 0 or levelingenable == ():
+           if levelingenable == 0:
                 return
            cursor.execute("SELECT COUNT(*) FROM levels WHERE id = %s", [message.author.id])
            r = cursor.fetchone()
