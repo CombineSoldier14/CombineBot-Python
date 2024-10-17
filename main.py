@@ -1,31 +1,18 @@
-from __future__ import print_function
 import discord
 import os # default module
-from discord.ext import commands
-from discord.ext import tasks
+from discord.ext import commands, tasks
 import json
 import logging
-import cowsay
-from discord import Option
-from discord import User
-from discord import Interaction
-from discord import InteractionResponse
-from discord import MessageInteraction
-from discord import interactions
-from discord import InteractionMessage
 import nltk
-import random
 import traceback
 import cogs.combinebot
 import requests
 import mysql.connector
-from datetime import date, datetime, timedelta
 from cogs.lists import levels
 from dotenv import load_dotenv
-import dotenv
 from cogs.combinebot import mysqlcnx
 
-dotenv.load_dotenv()
+load_dotenv()
 
 use_db = os.getenv("USE_DB")
 VERSION = os.getenv("VERSION")
@@ -52,7 +39,9 @@ if use_db != 0:
 
 # alphagamedeveloper: you should really just use a real boolean here... this is a mess
 # combinesoldier14: You're literally the one that added this -_-
-if dev_status in (1, True, "1", "True", "true", "TRUE"):
+# alphagamedeveloper: I know, and I regret it
+# alphagamedeveloper: It is time to put an end to this madness
+if dev_status:
             name = "CombineBot Development Edition"
             game = "with unstable ass commands"
             prefix = "-"
