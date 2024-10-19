@@ -1,31 +1,18 @@
-from __future__ import print_function
 import discord
 import os # default module
-from discord.ext import commands
-from discord.ext import tasks
+from discord.ext import commands, tasks
 import json
 import logging
-import cowsay
-from discord import Option
-from discord import User
-from discord import Interaction
-from discord import InteractionResponse
-from discord import MessageInteraction
-from discord import interactions
-from discord import InteractionMessage
 import nltk
-import random
 import traceback
 import cogs.combinebot
 import requests
 import mysql.connector
-from datetime import date, datetime, timedelta
 from cogs.lists import levels
 from dotenv import load_dotenv
-import dotenv
 from cogs.combinebot import mysqlcnx
 
-dotenv.load_dotenv()
+load_dotenv()
 
 use_db = os.getenv("USE_DB")
 VERSION = os.getenv("VERSION")
@@ -52,7 +39,9 @@ if use_db != 0:
 
 # alphagamedeveloper: you should really just use a real boolean here... this is a mess
 # combinesoldier14: You're literally the one that added this -_-
-if dev_status in (1, True, "1", "True", "true", "TRUE"):
+# alphagamedeveloper: I know, and I regret it
+# alphagamedeveloper: It is time to put an end to this madness
+if dev_status:
             name = "CombineBot Development Edition"
             game = "with unstable ass commands"
             prefix = "-"
@@ -106,32 +95,34 @@ async def rotateStatus():
     await cogs.combinebot.changeStatus(bot)
 
 @bot.listen("on_message")
-async def on_message(message: discord.Message):
+async def on_message(ctx: discord.Message):
+      if ctx.author.bot:
+            return
       if use_db != 0:
-           cursor.execute("INSERT INTO guild_settings (guild_id) values (%s)", [message.guild.id])
+           cursor.execute("INSERT INTO guild_settings (guild_id) values (%s)", [ctx.guild.id])
            cnx.commit()
-           cursor.execute("SELECT leveling_enabled FROM guild_settings WHERE guild_id = %s", [message.guild.id])
+           cursor.execute("SELECT leveling_enabled FROM guild_settings WHERE guild_id = %s", [ctx.guild.id])
            levelingenable = cursor.fetchone()
            if levelingenable == 0:
                 return
-           cursor.execute("SELECT COUNT(*) FROM levels WHERE id = %s", [message.author.id])
+           cursor.execute("SELECT COUNT(*) FROM levels WHERE id = %s", [ctx.author.id])
            r = cursor.fetchone()
            if r[0] == 0:
-                cursor.execute("INSERT INTO levels (id) values (%s)", [message.author.id])
+                cursor.execute("INSERT INTO levels (id) values (%s)", [ctx.author.id])
                 cnx.commit()
            
-           cursor.execute("UPDATE levels SET messages_sent = messages_sent + 1 WHERE id = %s;", [message.author.id])
+           cursor.execute("UPDATE levels SET messages_sent = messages_sent + 1 WHERE id = %s;", [ctx.author.id])
            cnx.commit()
-           cursor.execute("SELECT messages_sent FROM levels WHERE id = %s", [message.author.id])
+           cursor.execute("SELECT messages_sent FROM levels WHERE id = %s", [ctx.author.id])
            n = cursor.fetchone()
            for x in reversed(levels):
                 if n[0] == x["messages_required"]:
-                    cursor.execute("UPDATE levels SET level = level + 1 WHERE id = %s;", [message.author.id])
+                    cursor.execute("UPDATE levels SET level = level + 1 WHERE id = %s;", [ctx.author.id])
                     cnx.commit()
-                    cursor.execute("SELECT level FROM levels WHERE id = %s", [message.author.id])
+                    cursor.execute("SELECT level FROM levels WHERE id = %s", [ctx.author.id])
                     newlevel = cursor.fetchone()
                     cnx.commit()
-                    b = await message.channel.send("<@{0}> you have leveled up to {1}!\n-# This message will automatically be deleted in 30 seconds.".format(message.author.id, newlevel[0]))
+                    b = await ctx.channel.send("<@{0}> you have leveled up to {1}!\n-# This message will automatically be deleted in 30 seconds.".format(ctx.author.id, newlevel[0]))
                     await b.delete(delay=30)
       else:
             return
@@ -139,7 +130,11 @@ async def on_message(message: discord.Message):
 @bot.listen("on_application_command")
 async def on_application_command(ctx: discord.context.ApplicationContext):
      if use_db != 0:
-           cursor.execute("INSERT INTO guild_settings (guild_id) values (%s)", [message.guild.id])
+           # We don't need to track bots!
+           if ctx.author.bot:
+               return
+           
+           cursor.execute("INSERT INTO guild_settings (guild_id) values (%s)", [ctx.guild.id])
            cnx.commit()
            cursor.execute("SELECT leveling_enabled FROM guild_settings WHERE guild_id = %s", [ctx.guild.id])
            levelingenable = cursor.fetchone()
