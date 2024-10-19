@@ -99,6 +99,11 @@ async def on_message(ctx: discord.Message):
       if ctx.author.bot:
             return
       if use_db != 0:
+           cursor.execute("SELECT leveling_enabled FROM guild_settings WHERE guild_id = %s", [ctx.guild.id])
+           xy = cursor.fetchone()[0]
+           if xy == 2:
+               return
+           
            cursor.execute("INSERT INTO guild_settings (guild_id) values (%s)", [ctx.guild.id])
            cnx.commit()
            cursor.execute("SELECT leveling_enabled FROM guild_settings WHERE guild_id = %s", [ctx.guild.id])
@@ -130,6 +135,10 @@ async def on_message(ctx: discord.Message):
 @bot.listen("on_application_command")
 async def on_application_command(ctx: discord.context.ApplicationContext):
      if use_db != 0:
+           cursor.execute("SELECT leveling_enabled FROM guild_settings WHERE guild_id = %s", [ctx.guild.id])
+           xy = cursor.fetchone()[0]
+           if xy == 2:
+               return
            # We don't need to track bots!
            if ctx.author.bot:
                return
@@ -345,7 +354,7 @@ async def disableleveling(interaction, leveling: discord.Option(bool, choices=[T
             status = cursor.fetchone()
             if status == 0 or status is None:
                  cursor.execute("INSERT INTO guild_settings (guild_id) values (%s)", [interaction.guild.id])
-            cursor.execute("UPDATE guild_settings SET leveling_enabled = 0 WHERE guild_id = %s;", [interaction.guild.id])
+            cursor.execute("UPDATE guild_settings SET leveling_enabled = 2 WHERE guild_id = %s;", [interaction.guild.id])
             cnx.commit()
             await interaction.response.send_message(":white_check_mark: Leveling is disabled on this server!")
      else:
