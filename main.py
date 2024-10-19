@@ -101,14 +101,12 @@ async def on_message(ctx: discord.Message):
       if use_db != 0:
            cursor.execute("SELECT leveling_enabled FROM guild_settings WHERE guild_id = %s", [ctx.guild.id])
            xy = cursor.fetchone()[0]
-           if xy == 2:
-               return
-           
-           cursor.execute("INSERT INTO guild_settings (guild_id) values (%s)", [ctx.guild.id])
-           cnx.commit()
+           if xy == 0:
+               cursor.execute("INSERT INTO guild_settings (guild_id) values (%s)", [ctx.guild.id])
+               cnx.commit()
            cursor.execute("SELECT leveling_enabled FROM guild_settings WHERE guild_id = %s", [ctx.guild.id])
            levelingenable = cursor.fetchone()
-           if levelingenable == 0:
+           if levelingenable == 2:
                 return
            cursor.execute("SELECT COUNT(*) FROM levels WHERE id = %s", [ctx.author.id])
            r = cursor.fetchone()
@@ -137,14 +135,16 @@ async def on_application_command(ctx: discord.context.ApplicationContext):
      if use_db != 0:
            cursor.execute("SELECT leveling_enabled FROM guild_settings WHERE guild_id = %s", [ctx.guild.id])
            xy = cursor.fetchone()[0]
-           if xy == 2:
-               return
+           if xy == 0:
+               cursor.execute("INSERT INTO guild_settings (guild_id) values (%s)", [ctx.guild.id])
+               cnx.commit()
+           cursor.execute("SELECT leveling_enabled FROM guild_settings WHERE guild_id = %s", [ctx.guild.id])
+           levelingenable = cursor.fetchone()
+           if levelingenable == 2:
+                return
            # We don't need to track bots!
            if ctx.author.bot:
                return
-           
-           cursor.execute("INSERT INTO guild_settings (guild_id) values (%s)", [ctx.guild.id])
-           cnx.commit()
            cursor.execute("SELECT leveling_enabled FROM guild_settings WHERE guild_id = %s", [ctx.guild.id])
            levelingenable = cursor.fetchone()
            if levelingenable == 0:
