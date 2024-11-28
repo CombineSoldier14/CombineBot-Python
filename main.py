@@ -41,18 +41,13 @@ if use_db != 0:
 # combinesoldier14: You're literally the one that added this -_-
 # alphagamedeveloper: I know, and I regret it
 # alphagamedeveloper: It is time to put an end to this madness
-if dev_status:
-            name = "CombineBot Development Edition"
-            game = "with unstable ass commands"
-            prefix = "-"
-            icon = "https://i.postimg.cc/8PfmD1gs/329fabbb47c098113bb8af904a6d2638.png"
-            link = "https://discord.com/oauth2/authorize?client_id=1227477531461025854"
-else:
-            name = "CombineBot"
-            game = "https://combinesolder14.site/combinebot"
-            prefix = ";"
-            icon = "https://i.postimg.cc/65c12W1c/d89047f0124e9aa9e86ed3971af5e7ce.png"
-            link = "https://discord.com/oauth2/authorize?client_id=1225220764861730867"
+"https://discord.com/oauth2/authorize?client_id=1227477531461025854"
+
+name = "CombineBot"
+game = "https://combinesolder14.site/combinebot"
+prefix = ";"
+icon = "https://i.postimg.cc/65c12W1c/d89047f0124e9aa9e86ed3971af5e7ce.png"
+link = "https://discord.com/oauth2/authorize?client_id=1225220764861730867"
 
 
 
