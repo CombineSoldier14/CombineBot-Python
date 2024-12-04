@@ -318,7 +318,7 @@ async def about(interaction):
             usercount += 1
     embed = discord.Embed(
         title= "About {0} v{1}".format(response[0]["name"], response[0]["version"]),
-        description= "{0} is a Python based discord bot created by CombineSoldier14 with commands for moderation and fun!\n {1}'s birthday is **4/5/2024.**\n CombineBot is currently serving **{2}** users in **{3}** servers.".format(response[0]["name"], response[0]["name"], str(usercount), len(bot.guilds)),
+        description= "{0} is a Python based discord bot created by CombineSoldier14 with commands for moderation and fun!\n {1}'s birthday is **12/11/2023.** (was rewritten on **4/5/2024**)\n CombineBot is currently serving **{2}** users in **{3}** servers.".format(response[0]["name"], response[0]["name"], str(usercount), len(bot.guilds)),
         color=discord.Colour.yellow(),
     )
     embed.set_thumbnail(url=icon)
