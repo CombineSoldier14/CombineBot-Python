@@ -1,3 +1,5 @@
+# NOTE: I do not update this version of CombineBot anymore. Please go over to the new [discord.js version](https://github.com/CombineSoldier14/CombineBot) instead.
+
 <h1 align="center">CombineBot <img src="https://cdn.discordapp.com/avatars/1225220764861730867/c10173e8f40183d9fa988131caf1e1fa.png?size=48" /></h1>
 
 <!-- ![alt text](https://cdn.discordapp.com/app-icons/1225220764861730867/f66bd4beb4f1ebee0685d8c5cfd646bb.png?size=256) -->
